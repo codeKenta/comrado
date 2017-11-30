@@ -1,10 +1,18 @@
-var   express = require('express'),
-      bodyParser = require('body-parser'),
-      path = require('path'),
-      http = require('http'),
-      mongoose = require('mongoose'),
-      app = express(),
-      server = http.createServer(app);
+/*
+ * Kenneth Österholm
+ * Final project in course "JavaScript based development "
+ * Mid Swede University 2018.
+*/
+
+var   express     = require('express'),
+      bodyParser  = require('body-parser'),
+      path        = require('path'),
+      http        = require('http'),
+      mongoose    = require('mongoose'),
+      app         = express(),
+      server      = http.createServer(app),
+
+      usersRoute  = require('./routes/users');
 
 // Set Port
 const port = process.env.PORT || '3000';
@@ -14,7 +22,7 @@ const port = process.env.PORT || '3000';
 // DATABASE CONFIGS ==========
 // ===========================
 
-var uri = "mongodb://user:pepperoni@ds117156.mlab.com:17156/moment-angular";
+var uri = "mongodb://user:friends4ever@ds123926.mlab.com:23926/comrado_dev";
 
 mongoose.Promise = global.Promise
 mongoose.connect(uri);
@@ -30,10 +38,14 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 
+// Routes
+app.use('/users', usersRoute);
+
 // Send all other requests to the Angular app
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/dist/index.html'));
 });
+
 
 
 var startLog =
