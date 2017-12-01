@@ -1,0 +1,22 @@
+
+
+
+
+• Skapa athorizering
+
+/ / / / / / / / / / / / /
+N E X T  S T E P
+• Börja bygga templates och angular componenter
+
+
+
+
+
+
+=================
+1 december
+=================
+• Installerat en MEAN-miljö
+• Skapat grundläggande databas queries
+• Skapat designskisser för samtliga vyer.
+• Ritat upp angular-arkitekturen för compononets.
