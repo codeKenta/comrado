@@ -1,0 +1,20 @@
+///////////////////
+// MEDIA QUERIES
+///////////////////
+@mixin mediaMaxWidth($maxWidth) {
+  @media only screen and (max-width: $maxWidth) {
+    @content;
+  }
+}
+
+@mixin mediaMinWidth($minWidth) {
+  @media only screen and (min-width: $minWidth) {
+    @content;
+  }
+}
+
+@mixin mediaMinMaxWidth($minWidth, $maxWidth) {
+  @media only screen and (min-width: $minWidth) and (max-width: $maxWidth) {
+    @content;
+  }
+}

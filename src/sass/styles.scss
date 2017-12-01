@@ -1,0 +1,29 @@
+
+@import './variables';
+@import './mixins';
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+
+body, html {
+  padding: 0;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+}
+
+// Positioning
+.flex {
+  display: flex;
+}
+.just-space-between {
+  justify-content: space-between;
+}
+
+
+.section-title {
+  margin: 0;
+  padding: 15px 0;
+  font-weight: 300;
+  background: $baseColorGradient;
+  color: white;
+  text-align: center;
+}
