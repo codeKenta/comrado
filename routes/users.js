@@ -1,20 +1,21 @@
 var express   = require('express'),
     router    = express.Router(),
     mongoose  = require('mongoose'),
-    sanitize    = require('mongo-sanitize'),
-    User      = require("../models/user");
+    objectID  = require('objectid'),
+    sanitize  = require('mongo-sanitize'),
+
+    Queries   = require('./queries'),
+    User      = require('../models/user');
 
 // Get all users
 // Fix so there is only username an id
 router.get('/', function(req, res, next){
 
-  User.find(function(err, users){
-    if (err) {
-      res.send(err);
-    } else {
-      res.json(users);
-    }
-  });
+  User.find({}).select('username _id')
+      .exec(function (err, users) {
+        if (err) return next(err);
+        res.json(users);
+    });
 
 });
 
@@ -25,7 +26,6 @@ router.post('/', function(req, res, next){
 
   // Find the logged in users company
   User.create(newUser, function(err, createdUser){
-
       if(err){
         res.send(err)
       } else {
@@ -39,7 +39,7 @@ router.post('/', function(req, res, next){
 router.post('/filter', function(req, res, next){
 
   var filter = req.body.filter;
-  var myID = mongoose.Types.ObjectId(req.body.myID);
+  var myID = objectID(req.body.myID);
   console.log(req.body);
 
   User.find({filter: {$in: filter}, friends: myID}, function(err, users){
@@ -55,9 +55,8 @@ router.post('/filter', function(req, res, next){
 
 router.put('/request', function(req, res, next){
 
-  var requesterID = mongoose.Types.ObjectId(req.body.requesterID);
-  var recieverID = mongoose.Types.ObjectId(req.body.recieverID);
-
+  var requesterID = objectID(req.body.requesterID);
+  var recieverID = objectID(req.body.recieverID);
 
   User.findOneAndUpdate({_id: recieverID }, {$push: { friendRequests: requesterID }}, function(err, reciever){
     if (err) {
@@ -72,46 +71,13 @@ router.put('/request', function(req, res, next){
 
 router.put('/accept', function(req, res, next){
 
-  /*
-
-  3. Pusha in acceptersID i requesters friend.
-  */
-
-  var requesterID = mongoose.Types.ObjectId(req.body.requesterID);
-  var accepterID = mongoose.Types.ObjectId(req.body.accepterID);
-
-
-
-  var acceptRequest = function (requesterId, accepterId){
-    return new Promise(function(resolve, reject){
-      User.findOneAndUpdate({_id: accepterID }, {$pull: { friendRequests: requesterID }, $push: { friends: requesterID } })
-      .exec(function(err){
-        if(err){
-          reject("Something went wrong.")
-        } else {
-          resolve();
-        }
-      });
-    });
-  }
-
-  var fulfillFriendship = function (requesterId, accepterId){
-    return new Promise(function(resolve, reject){
-      User.findOneAndUpdate({_id: requesterId }, { $push: { friends: accepterId } })
-      .exec(function(err){
-        if(err){
-          reject("Something went wrong.")
-        } else {
-          resolve();
-        }
-      });
-    });
-  }
+  var requesterID = objectID(req.body.requesterID);
+  var accepterID = objectID(req.body.accepterID);
 
   var allPromises = [];
 
-  allPromises.push(acceptRequest(requesterID, accepterID));
-  allPromises.push(fulfillFriendship(requesterID, accepterID));
+  allPromises.push(Queries.acceptRequest(requesterID, accepterID));
+  allPromises.push(Queries.fulfillFriendship(requesterID, accepterID));
 
 	Promise.all(allPromises).then(function(res){
 	 	res.status(200);
@@ -119,17 +85,6 @@ router.put('/accept', function(req, res, next){
 	.catch(function(err){
     res.send(err);
 	})
-
-  //
-
-  // fungerar första två stegen
-  // User.findOneAndUpdate({_id: accepterID }, {$pull: { friendRequests: requesterID }, $push: { friends: requesterID } }, function(err, accepter){
-  //   if (err) {
-  //     res.send(err);
-  //   } else {
-  //     res.json(accepter);
-  //   }
-  // });
 
 });
 

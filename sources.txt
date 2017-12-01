@@ -1,0 +1,6 @@
+Friendship relation mongoose
+https://stackoverflow.com/questions/6183147/storing-friend-relationships-in-mongodb
+
+
+Password reset tutorial
+http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/

@@ -4,8 +4,8 @@ var Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 
 var UserSchema = new mongoose.Schema({
-  username:   String,
-  password:   String,
+  username:   { type: String, required: true, unique: true },
+  password:   { type: String, required: true },
 
   filter: [String],
 
@@ -19,12 +19,3 @@ var UserSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("User", UserSchema);
-//
-// filter: {
-//   eat: Boolean,
-//   drink: Boolean,
-//   game: Boolean,
-//   walk: Boolean
-// },
-
-//https://stackoverflow.com/questions/6183147/storing-friend-relationships-in-mongodb
