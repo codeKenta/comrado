@@ -1,16 +1,29 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from "@angular/router";
 
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
+import { SignInComponent } from './landing/sign-in/sign-in.component';
+import { SignUpComponent } from './landing/sign-up/sign-up.component';
+
+const appRoutes: Routes = [
+  { path: '', component: LandingComponent },
+  { path: 'signin', component: SignInComponent },
+  { path: 'signup', component: SignUpComponent }
+
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    LandingComponent
+    LandingComponent,
+    SignInComponent,
+    SignUpComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]

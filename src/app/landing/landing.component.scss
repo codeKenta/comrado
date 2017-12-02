@@ -25,6 +25,7 @@
   padding: 40px;
   .brand {
     margin: 0;
+    font-weight: 300;
     font-size: 60px;
     text-align: center;
     color: $baseColor1;
@@ -42,7 +43,42 @@
 
 .landing-form {
   background: white;
+
   .form-content {
+    max-width: 600px;
+    margin: 0 auto;
     padding: 15px;
+    padding-top: 20px;
+
+    .group {
+      width: 48%;
+      label {
+        display: block;
+        color: $baseColor1;
+        margin-bottom: 5px;
+      }
+      .input {
+          width: 100%;
+      }
+    }
+
+    .small-text {
+      text-align: center;
+      color: $mediumGrey;
+      margin-top: 30px;
+      .link {
+        text-decoration: none;
+        font-weight: bold;
+        color: $baseColor1 !important;
+      }
+    }
+
   }
+
+
+
+
+
+
+
 }

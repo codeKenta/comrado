@@ -1,4 +1,12 @@
 $baseColor1: #ff2756; // Lyche
 $baseColorLight: #ff5c87; // Pink
 
+$complementColor: #47b4f0; // Light blue
+$complementColorLight: #02d0ec; // Neon turquise
+
 $baseColorGradient: linear-gradient(to right, $baseColor1, $baseColorLight);
+$complementColorGradient: linear-gradient(to right, $complementColor, $complementColorLight);
+
+$darkGrey: #515151;
+$mediumGrey: #8a8a89;
+$lightGrey: #ededed;
