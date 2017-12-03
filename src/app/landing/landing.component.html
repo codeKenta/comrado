@@ -1,11 +1,11 @@
+<nav>
 
-  <div class="landing-intro-container">
+    <a routerLinkActive="active" routerLink="signin">Sign in</a>
+    <a routerLinkActive="active" routerLink="signup">Sign up</a>
+</nav>
+<div class="landing-intro-container">
     <h1 class="brand">comrado</h1>
     <p class="tagline">Hang out more with friends</p>
-  </div>
-
-  <form class="landing-form">
-    <router-outlet></router-outlet>
-
-  </form>
+</div>
+<router-outlet></router-outlet>
 <div class="landing-bg"></div>

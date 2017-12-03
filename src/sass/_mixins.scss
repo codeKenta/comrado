@@ -18,3 +18,15 @@
     @content;
   }
 }
+
+@mixin hover(){
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+@mixin transEasOut($speed){
+  transition: all $speed ease-out;
+}

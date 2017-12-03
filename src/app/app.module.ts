@@ -7,12 +7,13 @@ import { LandingComponent } from './landing/landing.component';
 import { SignInComponent } from './landing/sign-in/sign-in.component';
 import { SignUpComponent } from './landing/sign-up/sign-up.component';
 
-const appRoutes: Routes = [
-  { path: '', component: LandingComponent },
+
+const appRoutes: Routes =
+[
   { path: 'signin', component: SignInComponent },
   { path: 'signup', component: SignUpComponent }
-
-];
+  }
+]
 
 @NgModule({
   declarations: [

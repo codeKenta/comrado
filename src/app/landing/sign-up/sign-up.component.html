@@ -1,3 +1,25 @@
-<p>
-  sign-up works!
-</p>
+<form class="landing-form signup">
+  <h2 class="section-title">Sign up</h2>
+
+  <div class="form-content">
+    <div class="flex just-space-between">
+      <div class="group">
+        <label for="username">Username</label>
+        <input id="username" class="input border" type="text" name="username">
+      </div>
+    </div>
+    <div class="flex just-space-between">
+      <div class="group">
+        <label for="password">Password</label>
+        <input id="password" class="input border" type="password" name="password">
+      </div>
+      <div class="group">
+        <label for="password-repeat">Repeat Password</label>
+        <input id="password-repeat" class="input border" type="password" name="password-repeat">
+      </div>
+  </div>
+    <button class="button primary" role="button"><span class="text">Sign up</span></button>
+    <div class="devider margin"></div>
+    <p class="small-text">Already a member? <a routerLink="/signin" class="link">Sign in now!</a></p>
+  </div>
+</form>
