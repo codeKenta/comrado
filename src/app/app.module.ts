@@ -12,7 +12,7 @@ const appRoutes: Routes =
 [
   { path: 'signin', component: SignInComponent },
   { path: 'signup', component: SignUpComponent }
-  }
+  
 ]
 
 @NgModule({
