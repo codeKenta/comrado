@@ -18,6 +18,12 @@ body, html {
   justify-content: space-between;
 }
 
+.vert-center {
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 
 .section-title {
   margin: 0;
@@ -126,5 +132,30 @@ BUTTONS
       }
     }
 
+  }
+}
+
+
+
+/* Logged In */
+.container {
+  // padding: 15px;
+  background: white;
+  .row {
+    padding: 15px;
+    border-bottom: 1px solid $lightGrey;
+    .group {
+      img {
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        margin-right: 20px;
+      }
+      .username {
+        // font-weight: bold;
+        color: $baseColor1;
+        font-size: 20px;
+      }
+    }
   }
 }
