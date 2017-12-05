@@ -10,6 +10,10 @@ import { LoggedInComponent } from './logged-in/logged-in.component';
 import { FeedComponent } from './logged-in/feed/feed.component';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { EatComponent } from './icons/eat/eat.component';
+import { DrinkComponent } from './icons/drink/drink.component';
+import { CoffeeComponent } from './icons/coffee/coffee.component';
+import { GameComponent } from './icons/game/game.component';
 
 const appRoutes: Routes =
 [
@@ -24,7 +28,11 @@ const appRoutes: Routes =
     SignInComponent,
     SignUpComponent,
     LoggedInComponent,
-    FeedComponent
+    FeedComponent,
+    EatComponent,
+    DrinkComponent,
+    CoffeeComponent,
+    GameComponent
   ],
   imports: [
     BrowserModule,

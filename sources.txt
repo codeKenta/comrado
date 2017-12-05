@@ -7,3 +7,7 @@ http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/
 
 Muter . upload files
 https://www.youtube.com/watch?v=9Qzmri1WaaE
+
+
+svg angular component
+https://teropa.info/blog/2016/12/12/graphics-in-angular-2.html
