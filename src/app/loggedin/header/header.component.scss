@@ -1,0 +1,85 @@
+@import '~sass/variables';
+@import '~sass/mixins';
+
+nav {
+  position: fixed;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 15px;
+  background: $baseColorGradient;
+  color: white;
+  z-index: 5;
+
+  .nav-links {
+    display: flex;
+    flex-direction: row;
+
+    img {
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      margin-left: 20px;
+    }
+    .link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 20px;
+      text-decoration: none;
+      color: white;
+
+
+
+      &.active {
+        font-weight: bold;
+      }
+      .fa {
+
+      }
+      .text {
+
+      }
+    }
+
+  }
+}
+
+.account {
+  padding-top: 20px;
+  position: fixed;
+  top: 70px;
+  right: 0;
+  width: 200px;
+  background: white;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0px 0px 5px -2px rgba(0,0,0,0.35);
+
+   img {
+     display: block;
+     margin: 0 auto;
+     width: 100px;
+     height: 100px;
+     border-radius: 50%;
+   }
+   .username {
+     text-align: center;
+     color: $baseColor1;
+     font-size: 18px;
+   }
+   .row {
+     padding: 15px;
+     border-top: 1px solid $mediumLightGrey;
+     color: $mediumGrey;
+     .fa {
+       margin-right: 10px;
+     }
+     @include hover(){
+       background: lighten($lightGrey, 5);
+
+     }
+     &:active {
+       background: lighten($lightGrey, 7);
+        color: $baseColor1;
+     }
+   }
+}

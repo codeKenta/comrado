@@ -1,0 +1,100 @@
+
+
+<div class="container list">
+  <div class="requests">
+    <h2 class="title">Friend Requests</h2>
+
+    <div class="request">
+      <img src="../../../assets/images/profiles/example/sebastien.jpg" alt="">
+      <p class="username">sebatien</p>
+      <div class="button-wrapper">
+        <div class="button primary">Accept</div>
+        <div class="button danger">Decline</div>
+      </div>
+    </div>
+
+    <div class="request">
+      <img src="../../../assets/images/profiles/example/anna.jpg" alt="">
+      <p class="username">anna</p>
+      <div class="button-wrapper">
+        <div class="button primary">Accept</div>
+        <div class="button danger">Decline</div>
+      </div>
+    </div>
+
+  </div>
+
+  <h2 class="section-title solid">Friends</h2>
+  <!-- user -->
+  <div class="row flex just-space-between">
+    <div class="flex group">
+      <img src="../../../assets/images/profiles/example/wyatt.jpg" alt="">
+      <div class="flex vert-center">
+        <span class="username">wyatt</span>
+      </div>
+    </div>
+  </div>
+  <!-- end -->
+
+  <!-- user -->
+  <div class="row flex just-space-between">
+    <div class="flex group">
+      <img src="../../../assets/images/profiles/example/anna.jpg" alt="">
+      <div class="flex vert-center">
+        <span class="username">anna</span>
+      </div>
+    </div>
+  </div>
+  <!-- end -->
+
+  <!-- user -->
+  <div class="row flex just-space-between">
+    <div class="flex group">
+      <img src="../../../assets/images/profiles/example/carl.jpg" alt="">
+      <div class="flex vert-center">
+        <span class="username">carl</span>
+      </div>
+    </div>
+  </div>
+  <!-- end -->
+
+  <!-- user -->
+  <div class="row flex just-space-between">
+    <div class="flex group">
+      <img src="../../../assets/images/profiles/example/georgie.jpg" alt="">
+      <div class="flex vert-center">
+        <span class="username">georgie</span>
+      </div>
+    </div>
+  </div>
+  <!-- end -->
+
+  <!-- user -->
+  <div class="row flex just-space-between">
+    <div class="flex group">
+      <img src="../../../assets/images/profiles/example/sebastien.jpg" alt="">
+      <div class="flex vert-center">
+        <span class="username">sebastien</span>
+      </div>
+    </div>
+  </div>
+  <!-- end -->
+
+  <!-- user -->
+  <div class="row flex just-space-between">
+    <div class="flex group">
+      <img src="../../../assets/images/profiles/example/suzanna.jpg" alt="">
+      <div class="flex vert-center">
+        <span class="username">suzanna</span>
+      </div>
+    </div>
+  </div>
+  <!-- end -->
+</div>
+
+<div class="friends-panel">
+  <div class="wrapper">
+    <span class="icon-wrapper"><app-search></app-search></span><input class="input" type="text" name="searchFriend">
+  </div>
+   <a [routerLink]="[friends/add]" class="link">Add Friends +</a>
+</div>

@@ -1,0 +1,36 @@
+<nav>
+  <div class="flex just-space-between">
+    <div class="flex vert-center">
+      <span clas="brand">Comrado</span>
+    </div>
+
+    <div class="nav-links">
+
+      <a class="link flex vert-center" routerLink="feed" routerLinkActive="active">
+        <i class="fa fa-list-ul" aria-hidden="true"></i>
+        <span class="text">feed</span>
+      </a>
+
+      <a class="link flex vert-center" routerLink="friends" routerLinkActive="active">
+        <i class="fa fa-users" aria-hidden="true"></i>
+        <span class="text">friends</span>
+      </a>
+
+      <img src="../../../assets/images/profiles/example/knetos.jpg" alt="">
+
+    </div>
+  </div>
+</nav>
+<div class="account">
+  <img src="../../../assets/images/profiles/example/knetos.jpg" alt="">
+  <p class="username">knetos</p>
+  <div class="row">
+    <i class="fa fa-cogs" aria-hidden="true"></i>
+    <span>Account Settings</span>
+  </div>
+  <div class="row">
+    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    <span>Sign out</span>
+  </div>
+</div>
+<router-outlet></router-outlet>

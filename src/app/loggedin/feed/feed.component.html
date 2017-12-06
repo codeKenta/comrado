@@ -1,0 +1,114 @@
+<div class="container list">
+
+  <!-- user -->
+  <div class="row flex just-space-between">
+    <div class="flex group">
+      <img src="../../../assets/images/profiles/example/wyatt.jpg" alt="">
+      <div class="flex vert-center">
+        <span class="username">wyatt</span>
+      </div>
+    </div>
+
+    <div class="emoji-container flex vert-center">
+      <img src="../../../assets/images/emojis/drink.png" alt="">
+    </div>
+  </div>
+  <!-- end -->
+
+  <!-- user -->
+  <div class="row flex just-space-between">
+    <div class="flex group">
+      <img src="../../../assets/images/profiles/example/anna.jpg" alt="">
+      <div class="flex vert-center">
+        <span class="username">anna</span>
+      </div>
+    </div>
+
+    <div class="emoji-container flex vert-center">
+      <img src="../../../assets/images/emojis/game.png" alt="">
+    </div>
+  </div>
+  <!-- end -->
+
+  <!-- user -->
+  <div class="row flex just-space-between">
+    <div class="flex group">
+      <img src="../../../assets/images/profiles/example/carl.jpg" alt="">
+      <div class="flex vert-center">
+        <span class="username">carl</span>
+      </div>
+    </div>
+
+    <div class="emoji-container flex vert-center">
+      <img src="../../../assets/images/emojis/eat.png" alt="">
+    </div>
+  </div>
+  <!-- end -->
+
+  <!-- user -->
+  <div class="row flex just-space-between">
+    <div class="flex group">
+      <img src="../../../assets/images/profiles/example/georgie.jpg" alt="">
+      <div class="flex vert-center">
+        <span class="username">georgie</span>
+      </div>
+    </div>
+
+    <div class="emoji-container flex vert-center">
+      <img src="../../../assets/images/emojis/game.png" alt="">
+      <img src="../../../assets/images/emojis/drink.png" alt="">
+    </div>
+  </div>
+  <!-- end -->
+
+  <!-- user -->
+  <div class="row flex just-space-between">
+    <div class="flex group">
+      <img src="../../../assets/images/profiles/example/sebastien.jpg" alt="">
+      <div class="flex vert-center">
+        <span class="username">sebastien</span>
+      </div>
+    </div>
+
+    <div class="emoji-container flex vert-center">
+      <img src="../../../assets/images/emojis/coffee.png" alt="">
+    </div>
+  </div>
+  <!-- end -->
+
+  <!-- user -->
+  <div class="row flex just-space-between">
+    <div class="flex group">
+      <img src="../../../assets/images/profiles/example/suzanna.jpg" alt="">
+      <div class="flex vert-center">
+        <span class="username">suzanna</span>
+      </div>
+    </div>
+
+    <div class="emoji-container flex vert-center">
+      <img src="../../../assets/images/emojis/eat.png" alt="">
+      <img src="../../../assets/images/emojis/drink.png" alt="">
+    </div>
+  </div>
+  <!-- end -->
+</div>
+
+<div class="my-activity flex just-space-between">
+
+  <div class="item" (click)="toggleActivity('eat')" [ngClass]="{ 'active' : activities.eat }">
+    <app-eat></app-eat>
+  </div>
+
+  <div class="item" (click)="toggleActivity('drink')" [ngClass]="{ 'active' : activities.drink }">
+    <app-drink></app-drink>
+  </div>
+
+  <div class="item" (click)="toggleActivity('coffee')" [ngClass]="{ 'active' : activities.coffee }">
+    <app-coffee></app-coffee>
+  </div>
+
+  <div class="item" (click)="toggleActivity('game')" [ngClass]="{ 'active' : activities.game }">
+    <app-game></app-game>
+  </div>
+
+</div>
