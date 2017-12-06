@@ -19,6 +19,11 @@ nav {
       width: 50px;
       height: 50px;
       margin-left: 20px;
+      box-sizing: border-box;
+      border: 1px solid $baseColorLight;
+      @include hover() {
+        border: 1px solid white;
+      }
     }
     .link {
       display: flex;
@@ -45,6 +50,7 @@ nav {
 }
 
 .account {
+  display: none;
   padding-top: 20px;
   position: fixed;
   top: 70px;
