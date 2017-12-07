@@ -6,12 +6,12 @@
 
     <div class="nav-links">
 
-      <a class="link flex vert-center" routerLink="feed" routerLinkActive="active">
+      <a class="link flex vert-center" routerLink="/feed" routerLinkActive="active">
         <i class="fa fa-list-ul" aria-hidden="true"></i>
         <span class="text">feed</span>
       </a>
 
-      <a class="link flex vert-center" routerLink="friends" routerLinkActive="active">
+      <a id="friends-link" class="link flex vert-center" routerLink="/friends" routerLinkActive="active">
         <i class="fa fa-users" aria-hidden="true"></i>
         <span class="text">friends</span>
       </a>
@@ -33,4 +33,5 @@
     <span>Sign out</span>
   </div>
 </div>
+
 <router-outlet></router-outlet>

@@ -1,0 +1,61 @@
+@import '~sass/variables';
+@import '~sass/mixins';
+
+.row {
+  padding-bottom: 20px;
+  img {
+    height: 50px;
+    width: 50px;
+  }
+  .date {
+    text-align: center;
+    font-size: 10px;
+    padding: 0;
+    margin: 0;
+    letter-spacing: 1.1px;
+    color: lighten($mediumGrey, 3);
+  }
+  .message {
+    color: $darkGrey;
+  }
+}
+
+.friend-msg {
+  flex-direction: row-reverse;
+  .img-wrapper {
+      margin-left: 20px;
+  }
+
+  .message {
+    text-align: right;
+  }
+
+}
+
+.me-msg {
+  .img-wrapper {
+      margin-right: 20px;
+  }
+
+  .message {
+    text-align: left;
+  }
+
+}
+
+.message-panel {
+  .input-wrapper {
+    position: static;
+
+    .input {
+      width: 400px;
+    }
+  }
+
+  .button {
+    background: white;
+    color: $baseColor1;
+    padding: 10px 15px;
+    margin: 0;
+  }
+}

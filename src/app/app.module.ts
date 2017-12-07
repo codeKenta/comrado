@@ -9,23 +9,52 @@ import { LandingComponent } from './landing/landing.component';
 import { SignInComponent } from './landing/sign-in/sign-in.component';
 import { SignUpComponent } from './landing/sign-up/sign-up.component';
 
-import { HeaderComponent } from './loggedin/header/header.component';
-import { FeedComponent } from './loggedin/feed/feed.component';
-import { FriendsComponent } from './loggedin/friends/friends.component';
-
 import { EatComponent } from './icons/eat/eat.component';
 import { DrinkComponent } from './icons/drink/drink.component';
 import { CoffeeComponent } from './icons/coffee/coffee.component';
 import { GameComponent } from './icons/game/game.component';
 import { SearchComponent } from './icons/search/search.component';
 
+import { HeaderComponent }      from './loggedin/header/header.component';
+import { FeedComponent }        from './loggedin/feed/feed.component';
+import { FriendsComponent }     from './loggedin/friends/friends.component';
+import { AddFriendsComponent }  from './loggedin/friends/add-friends/add-friends.component';
+import { FriendComponent }      from './loggedin/friends/friend/friend.component';
+import { ChatComponent } from './loggedin/friends/friend/chat/chat.component';
+
+
+
+
 const appRoutes: Routes =
 [
-  { path: 'signin', component: SignInComponent },
-  { path: 'signup', component: SignUpComponent },
-  { path: 'feed', component: FeedComponent },
-  { path: 'friends', component: FriendsComponent }
-]
+  {
+    path: 'signin',
+    component: SignInComponent
+  },
+  {
+    path: 'signup',
+    component: SignUpComponent
+  },
+  {
+    path: 'feed',
+    component: FeedComponent
+  },
+  {
+    path: 'friends',
+    component: FriendsComponent
+  },
+  {
+    path: 'addfriends',
+    component: AddFriendsComponent
+  },
+
+  {
+    path: 'friend/:friend',
+    component: FriendComponent
+  }
+
+];
+//
 
 @NgModule({
   declarations: [
@@ -40,7 +69,10 @@ const appRoutes: Routes =
     CoffeeComponent,
     GameComponent,
     FriendsComponent,
-    SearchComponent
+    SearchComponent,
+    AddFriendsComponent,
+    FriendComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

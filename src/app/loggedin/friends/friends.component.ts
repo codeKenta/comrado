@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-friends',
@@ -7,15 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FriendsComponent implements OnInit {
 
-  extendedMenu = false;
 
-  constructor() { }
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
-  }
-
-  toggleExtendedMenu(){
-    this.extendedMenu = !this.extendedMenu;
   }
 
 }

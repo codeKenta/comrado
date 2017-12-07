@@ -12,6 +12,10 @@ export class HeaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    $(".link").click( function(){
+      $("#extended-account-menu").slideUp();
+    })
+
     $(".user-thumb").click( function(){
       $("#extended-account-menu").slideToggle();
     })

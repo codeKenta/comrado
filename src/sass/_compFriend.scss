@@ -1,0 +1,29 @@
+.container.friend {
+  .top-section {
+    .extended-friend-menu {
+      color: $mediumGrey;
+      font-size: 18px;
+      position: relative;
+      top: 0;
+      right: 0;
+      line-height: 0px;
+    }
+  }
+}
+
+.friend {
+  padding-bottom: 35px;
+
+  .username {
+    text-align: center;
+    font-size: 22px;
+    color: $baseColor1;
+  }
+  img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+  }
+}
