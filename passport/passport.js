@@ -9,8 +9,8 @@ module.exports = function(passport){
   opts.secretOrKey = "6laxarienlaxask";
 
   passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
-    console.log(jwt_payload);
-    User.findOne({id: jwt_payload.data._id }, (err, user) => {
+
+    User.findById(jwt_payload.data._id, (err, user) => {
       if (err) {
         return done(err, false);
       }

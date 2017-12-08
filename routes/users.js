@@ -28,8 +28,6 @@ router.post('/authenticate', (req, res, next) => {
   var username = req.body.username;
   var password = req.body.password;
 
-  // User.findOne({username: username}, callback);
-  // User.getUserByUsername(username,
   User.findOne({username: username}, (err, user) => {
     if (err) throw err;
     if(!user){
@@ -61,12 +59,11 @@ router.post('/authenticate', (req, res, next) => {
 
 // Protected route
 router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
-  console.log("jasså?");
   res.json({user: req.user});
 });
 
 // Get all users
-router.get('/', function(req, res, next){
+router.get('/', (req, res, next) => {
 
   User.find({}).select('username _id')
       .exec(function (err, users) {
@@ -77,29 +74,27 @@ router.get('/', function(req, res, next){
 });
 
 
-router.post('/', function(req, res, next){
-
-  var newUser = req.body;
-
-  // Find the logged in users company
-  User.create(newUser, function(err, createdUser){
-      if(err){
-        res.send(err)
-      } else {
-        res.send(createdUser)
-      }
-  });
-})
-
+// router.post('/', (req, res, next) => {
+//
+//   var newUser = req.body;
+//
+//   User.create(newUser, (err, createdUser) => {
+//       if(err){
+//         res.send(err)
+//       } else {
+//         res.send(createdUser)
+//       }
+//   });
+// })
 
 
-router.post('/filter', function(req, res, next){
+
+router.post('/filter', (req, res, next) => {
 
   var filter = req.body.filter;
   var myID = objectID(req.body.myID);
-  console.log(req.body);
 
-  User.find({filter: {$in: filter}, friends: myID}, function(err, users){
+  User.find({filter: {$in: filter}, friends: myID}, (err, users) =>{
     if (err) {
       res.send(err);
     } else {
@@ -110,7 +105,7 @@ router.post('/filter', function(req, res, next){
 });
 
 
-router.put('/request', function(req, res, next){
+router.put('/request', (req, res, next) => {
 
   var requesterID = objectID(req.body.requesterID);
   var recieverID = objectID(req.body.recieverID);
@@ -126,7 +121,7 @@ router.put('/request', function(req, res, next){
 });
 
 
-router.put('/accept', function(req, res, next){
+router.put('/accept', (req, res, next) => {
 
   var requesterID = objectID(req.body.requesterID);
   var accepterID = objectID(req.body.accepterID);
@@ -136,10 +131,10 @@ router.put('/accept', function(req, res, next){
   allPromises.push(Queries.acceptRequest(requesterID, accepterID));
   allPromises.push(Queries.fulfillFriendship(requesterID, accepterID));
 
-	Promise.all(allPromises).then(function(res){
+	Promise.all(allPromises).then((res) => {
 	 	res.status(200);
 	})
-	.catch(function(err){
+	.catch((err) => {
     res.send(err);
 	})
 

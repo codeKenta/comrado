@@ -38,39 +38,9 @@ app.use(bodyParser.urlencoded({ extended: false}));
 // Angular DIST output folder
 app.use(express.static(path.join(__dirname, 'dist')));
 
-
-// var JwtStrategy = require('passport-jwt').Strategy,
-//     ExtractJwt  = require('passport-jwt').ExtractJwt;
-
 // Passport
 app.use(passport.initialize());
 app.use(passport.session());
-
-// var opts = {};
-
-// opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-// opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme("jwt");
-//
-// opts.secretOrKey = "6laxarienlaxask";
-//
-// passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
-//   console.log("hello? 0");
-//   User.findOne({id: jwt_payload.data._id }, (err, user) => {
-//     if (err) {
-//       console.log("errrrrrror? 1");
-//       return done(err, false);
-//     }
-//     if (user) {
-//       console.log("hello? 2");
-//       return done(null, user);
-//     } else {
-//       console.log("hello? 3");
-//       return done(null, false);
-//     }
-//   });
-// }));
-
-
 require('./passport/passport.js')(passport);
 
 
@@ -85,10 +55,10 @@ app.get('*', (req, res) => {
 
 
 var startLog =
-"\n+++++++++++++++++++++++\n" +
-"+++++ NODE SERVER +++++\n" +
-"+++++++ STARTED +++++++\n" +
-"+++++++++ " + port +" ++++++++\n" +
-"+++++++++++++++++++++++\n";
+"\n+++++++++++++++++++++++++++++++++++++++++++++++++++\n" +
+"+++++++++++++++++++ NODE SERVER +++++++++++++++++++\n" +
+"+++++++++++++++++++++ STARTED +++++++++++++++++++++\n" +
+"+++++++++++++++++++++++ " + port +" ++++++++++++++++++++++\n" +
+"+++++++++++++++++++++++++++++++++++++++++++++++++++\n";
 
 server.listen(port, () => console.log(startLog));
