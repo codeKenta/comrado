@@ -46,16 +46,32 @@
 .message-panel {
   .input-wrapper {
     position: static;
+    height: 30px;
+    background: white;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 5px;
 
     .input {
+      font-size: 12px;
       width: 400px;
+      padding: 0;
+      padding-left: 5px;
+      @include mediaMaxWidth(550px) {
+        width: 300px;
+      }
+      @include mediaMaxWidth(450px) {
+        width: 200px;
+      }
     }
   }
 
   .button {
     background: white;
     color: $baseColor1;
-    padding: 10px 15px;
+    font-size: 12px;
+    height: 30px;
+    padding: 7px 10px;
     margin: 0;
   }
 }

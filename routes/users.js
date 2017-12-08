@@ -3,12 +3,69 @@ var express   = require('express'),
     mongoose  = require('mongoose'),
     objectID  = require('objectid'),
     sanitize  = require('mongo-sanitize'),
-
+    passport  = require('passport'),
+    jwt       = require('jsonwebtoken'),
     Queries   = require('./queries'),
     User      = require('../models/user');
 
+
+router.post('/register', (req, res, next) => {
+  let newUser = new User({
+    username: req.body.username,
+    password: req.body.password
+  });
+
+  User.addUser(newUser, (err, user) => {
+    if (err) {
+      res.json({success: false, msg: 'The application failed to register the user'})
+    } else {
+      res.json({success: true, msg: 'New user registered'});
+    }
+  });
+});
+
+router.post('/authenticate', (req, res, next) => {
+  var username = req.body.username;
+  var password = req.body.password;
+
+  // User.findOne({username: username}, callback);
+  // User.getUserByUsername(username,
+  User.findOne({username: username}, (err, user) => {
+    if (err) throw err;
+    if(!user){
+      return res.json({success: false, msg: 'User not found'});
+    }
+
+    User.comparePassword(password, user.password, (err, isMatch) => {
+      if (err) throw err;
+      if(isMatch) {
+        const token = jwt.sign({ data: user }, '6laxarienlaxask', {
+          expiresIn: 604800
+        });
+
+        res.json({
+          success: true,
+          token: 'JWT ' + token,
+          user: {
+            id: user._id,
+            username: user.username
+          }
+        });
+      } else {
+        return res.json({success: false, msg: 'Wrong password or username'})
+      }
+
+    });
+  });
+});
+
+// Protected route
+router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+  console.log("jasså?");
+  res.json({user: req.user});
+});
+
 // Get all users
-// Fix so there is only username an id
 router.get('/', function(req, res, next){
 
   User.find({}).select('username _id')
@@ -89,7 +146,3 @@ router.put('/accept', function(req, res, next){
 });
 
 module.exports = router;
-
-// Find all by friendlist
-// https://stackoverflow.com/questions/8303900/mongodb-mongoose-findmany-find-all-documents-with-ids-listed-in-array
-// PROMISE example https://jsfiddle.net/nurulnabi/1k2zv9cp/2/
