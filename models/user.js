@@ -7,6 +7,7 @@ var Schema = mongoose.Schema,
 var UserSchema = new mongoose.Schema({
   username:   { type: String, required: true, unique: true },
   password:   { type: String, required: true },
+  imagepath: String,
 
   filter: [String],
 
@@ -24,10 +25,6 @@ module.exports = mongoose.model("User", UserSchema);
 module.exports.getUserById = function(id, callback) {
   User.findById(id, callback);
 }
-
-// module.exports.getUserByUsername = function(username, callback) {
-//   User.findOne({username: username}, callback);
-// }
 
 module.exports.addUser = function(newUser, callback){
   bcrypt.genSalt(10, (err, salt) => {

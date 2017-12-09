@@ -1,27 +1,34 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from "@angular/router";
+import { Routes, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
-import { AppComponent } from './app.component';
+import { AppComponent }     from './app.component';
 import { LandingComponent } from './landing/landing.component';
-import { SignInComponent } from './landing/sign-in/sign-in.component';
-import { SignUpComponent } from './landing/sign-up/sign-up.component';
+import { SignInComponent }  from './landing/sign-in/sign-in.component';
+import { SignUpComponent }  from './landing/sign-up/sign-up.component';
 
-import { EatComponent } from './icons/eat/eat.component';
-import { DrinkComponent } from './icons/drink/drink.component';
-import { CoffeeComponent } from './icons/coffee/coffee.component';
-import { GameComponent } from './icons/game/game.component';
-import { SearchComponent } from './icons/search/search.component';
+import { EatComponent }     from './icons/eat/eat.component';
+import { DrinkComponent }   from './icons/drink/drink.component';
+import { CoffeeComponent }  from './icons/coffee/coffee.component';
+import { GameComponent }    from './icons/game/game.component';
+import { SearchComponent }  from './icons/search/search.component';
 
 import { HeaderComponent }      from './loggedin/header/header.component';
 import { FeedComponent }        from './loggedin/feed/feed.component';
 import { FriendsComponent }     from './loggedin/friends/friends.component';
 import { AddFriendsComponent }  from './loggedin/friends/add-friends/add-friends.component';
 import { FriendComponent }      from './loggedin/friends/friend/friend.component';
-import { ChatComponent } from './loggedin/friends/friend/chat/chat.component';
+import { ChatComponent }        from './loggedin/friends/friend/chat/chat.component';
 
+import { ValidateService } from './services/validate.service';
+import { AuthService } from './services/auth.service';
+
+
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 
 
@@ -52,9 +59,8 @@ const appRoutes: Routes =
     path: 'friend/:friend',
     component: FriendComponent
   }
-
 ];
-//
+
 
 @NgModule({
   declarations: [
@@ -77,9 +83,15 @@ const appRoutes: Routes =
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    FormsModule,
+    HttpModule,
+    FlashMessagesModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    ValidateService,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

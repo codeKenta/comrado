@@ -37,6 +37,20 @@ a {
 }
 
 
+.alert-error {
+  font-weight: bold;
+  color: $baseColor1;
+  text-align: center;
+  margin-bottom: -25px;
+}
+
+.alert-success {
+  font-weight: bold;
+  color: $complementColor;
+  text-align: center;
+  margin-bottom: -25px;
+}
+
 .section-title {
   margin: 0;
   padding: 20px 0;

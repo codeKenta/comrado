@@ -1,15 +1,17 @@
-<form class="landing-form signin">
+<form class="landing-form signin" method="POST" (ngSubmit)="onSignInSubmit()">
   <h2 class="section-title">Sign in</h2>
+
+  <flash-messages></flash-messages>
 
   <div class="form-content">
     <div class="flex just-space-between">
       <div id="group2" class="group">
         <label for="username">Username</label>
-        <input id="username" class="input border" type="text" name="username">
+        <input id="username" class="input border" type="text" name="username" [(ngModel)]="username">
       </div>
       <div id="group2" class="group">
         <label for="password">Password</label>
-        <input id="password" class="input border" type="password" name="password">
+        <input id="password" class="input border" type="password" name="password" [(ngModel)]="password">
       </div>
     </div>
     <button class="button primary" role="button"><span class="text">Sign in</span></button>

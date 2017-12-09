@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 declare var $:any;
 
@@ -9,7 +11,10 @@ declare var $:any;
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     $(".link").click( function(){
@@ -19,6 +24,12 @@ export class HeaderComponent implements OnInit {
     $(".user-thumb").click( function(){
       $("#extended-account-menu").slideToggle();
     })
+  }
+
+  onSignOutClick() {
+    this.authService.signOut();
+    this.router.navigate(['/signin']);
+    return false;
   }
 
 }
