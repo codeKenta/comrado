@@ -24,7 +24,7 @@ export class SignInComponent implements OnInit {
   }
 
   onSignInSubmit(){
-    console.log('submited sign in');
+
     var user = {
       username: this.username,
       password: this.password
@@ -35,19 +35,57 @@ export class SignInComponent implements OnInit {
       return false;
     }
 
+    // First tries to login, if the user not exist then the user is beeing registered.
     this.authService.authenticateUser(user).subscribe(data => {
+
       if(data.success) {
-        this.username = '';
-        this.password = '';
+        console.log('user exist');
+        // If existing user signed in successful
+        this.resetFormFields();
         this.authService.storeUserData(data.token, data.user);
         this.router.navigate(['/feed']);
 
       } else {
-        this.flashMessages.show(data.msg, { cssClass: 'alert-error', timeout: 5000 });
-        this.username = '';
-        this.password = '';
+        console.log('new user');
+        // If not, a new user is registered
+        this.authService.registerUser(user).subscribe(data => {
+          if(data.success){
+
+          } else {
+
+            // If the registration was not successful
+            this.resetFormFields();
+            this.flashMessages.show('Something went wrong. Please try again.', {cssClass: 'alert-error', timeout: 5000});
+            this.router.navigate(['']);
+          }
+
+        });
       }
     });
+
+    // Second signin-attemp with new user
+    this.authService.authenticateUser(user).subscribe(data => {
+
+      if(data.success) {
+        console.log('user exist');
+        // If existing user signed in successful
+        this.resetFormFields();
+        this.authService.storeUserData(data.token, data.user);
+        this.router.navigate(['/feed']);
+
+      } else {
+        // If the registration was not successful
+        this.resetFormFields();
+        this.flashMessages.show(data.msg, {cssClass: 'alert-error', timeout: 5000});
+        this.router.navigate(['']);
+
+        }
+    });
+  }
+
+  resetFormFields() {
+    this.username = '';
+    this.password = '';
   }
 
 }

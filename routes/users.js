@@ -10,9 +10,11 @@ var express   = require('express'),
 
 
 router.post('/register', (req, res, next) => {
+  let randomImage = Math.floor(Math.random() * 10) + 1;
   let newUser = new User({
     username: req.body.username,
-    password: req.body.password
+    password: req.body.password,
+    imagepath: 'images/profiles/example/default_' + randomImage + '.jpg'
   });
 
   User.addUser(newUser, (err, user) => {
@@ -46,7 +48,10 @@ router.post('/authenticate', (req, res, next) => {
           token: 'JWT ' + token,
           user: {
             id: user._id,
-            username: user.username
+            username: user.username,
+            friendRequests: user.friendRequests,
+            friends: user.friends,
+            filter: user.filter
           }
         });
       } else {
@@ -62,6 +67,7 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res,
   res.json({user: req.user});
 });
 
+
 // Get all users
 router.get('/', (req, res, next) => {
 
@@ -72,20 +78,6 @@ router.get('/', (req, res, next) => {
     });
 
 });
-
-
-// router.post('/', (req, res, next) => {
-//
-//   var newUser = req.body;
-//
-//   User.create(newUser, (err, createdUser) => {
-//       if(err){
-//         res.send(err)
-//       } else {
-//         res.send(createdUser)
-//       }
-//   });
-// })
 
 
 

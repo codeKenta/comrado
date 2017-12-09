@@ -10,25 +10,42 @@ declare var $:any;
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  user: Object = {
+    username: '',
+    imagepath: '',
+    friendRequests: [],
+    friends: []
+  }
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit() {
+
+    this.authService.getProfile().subscribe(profile => {
+      this.user = profile.user;
+    },
+    err => {
+      console.log(err);
+      return false;
+    });
+
     $(".link").click( function(){
       $("#extended-account-menu").slideUp();
-    })
+    });
 
     $(".user-thumb").click( function(){
       $("#extended-account-menu").slideToggle();
-    })
+    });
+
   }
+
 
   onSignOutClick() {
     this.authService.signOut();
-    this.router.navigate(['/signin']);
+    this.router.navigate(['/']);
     return false;
   }
 

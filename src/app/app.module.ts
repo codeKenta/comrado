@@ -9,7 +9,6 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AppComponent }     from './app.component';
 import { LandingComponent } from './landing/landing.component';
 import { SignInComponent }  from './landing/sign-in/sign-in.component';
-import { SignUpComponent }  from './landing/sign-up/sign-up.component';
 
 import { EatComponent }     from './icons/eat/eat.component';
 import { DrinkComponent }   from './icons/drink/drink.component';
@@ -26,38 +25,31 @@ import { ChatComponent }        from './loggedin/friends/friend/chat/chat.compon
 
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
-
-
+import { AuthGuard } from './guards/auth.guard';
 import { FlashMessagesModule } from 'angular2-flash-messages';
-
-
 
 const appRoutes: Routes =
 [
   {
-    path: 'signin',
-    component: SignInComponent
-  },
-  {
-    path: 'signup',
-    component: SignUpComponent
-  },
-  {
     path: 'feed',
-    component: FeedComponent
+    component: FeedComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'friends',
-    component: FriendsComponent
+    component: FriendsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'addfriends',
-    component: AddFriendsComponent
+    component: AddFriendsComponent,
+    canActivate: [AuthGuard]
   },
 
   {
     path: 'friend/:friend',
-    component: FriendComponent
+    component: FriendComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
@@ -67,7 +59,6 @@ const appRoutes: Routes =
     AppComponent,
     LandingComponent,
     SignInComponent,
-    SignUpComponent,
     HeaderComponent,
     FeedComponent,
     EatComponent,
@@ -90,7 +81,8 @@ const appRoutes: Routes =
   ],
   providers: [
     ValidateService,
-    AuthService
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -1,37 +1,39 @@
-<nav>
-  <div class="flex just-space-between">
-    <div class="flex vert-center">
-      <span clas="brand">Comrado</span>
+<div class="dashboard-container">
+  <nav>
+    <div class="flex just-space-between">
+      <div class="flex vert-center">
+        <span clas="brand">Comrado</span>
+      </div>
+
+      <div class="nav-links">
+
+        <a class="link flex vert-center" routerLink="/feed" routerLinkActive="active">
+          <i class="fa fa-list-ul" aria-hidden="true"></i>
+          <span class="text">feed</span>
+        </a>
+
+        <a id="friends-link" class="link flex vert-center" routerLink="/friends" routerLinkActive="active">
+          <i class="fa fa-users" aria-hidden="true"></i>
+          <span class="text">friends</span>
+        </a>
+
+        <img class="user-thumb" src="../../../assets/{{user.imagepath}}" alt="">
+
+      </div>
     </div>
-
-    <div class="nav-links">
-
-      <a class="link flex vert-center" routerLink="/feed" routerLinkActive="active">
-        <i class="fa fa-list-ul" aria-hidden="true"></i>
-        <span class="text">feed</span>
-      </a>
-
-      <a id="friends-link" class="link flex vert-center" routerLink="/friends" routerLinkActive="active">
-        <i class="fa fa-users" aria-hidden="true"></i>
-        <span class="text">friends</span>
-      </a>
-
-      <img class="user-thumb" src="../../../assets/images/profiles/example/knetos.jpg" alt="">
-
+  </nav>
+  <div id="extended-account-menu" class="account">
+    <img src="../../../assets/{{user.imagepath}}" alt="">
+    <p class="username">{{user.username}}</p>
+    <div class="row">
+      <i class="fa fa-cogs" aria-hidden="true"></i>
+      <span>Account Settings</span>
+    </div>
+    <div class="row signout" (click)="onSignOutClick()">
+      <i class="fa fa-arrow-right" aria-hidden="true"></i>
+      <span>Sign out</span>
     </div>
   </div>
-</nav>
-<div id="extended-account-menu" class="account">
-  <img src="../../../assets/images/profiles/example/knetos.jpg" alt="">
-  <p class="username">knetos</p>
-  <div class="row">
-    <i class="fa fa-cogs" aria-hidden="true"></i>
-    <span>Account Settings</span>
-  </div>
-  <div class="row signout" (click)="onSignOutClick()">
-    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-    <span>Sign out</span>
-  </div>
+
+  <router-outlet></router-outlet>
 </div>
-
-<router-outlet></router-outlet>

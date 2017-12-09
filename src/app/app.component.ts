@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { AuthService } from './services/auth.service';
+import { Router } from '@angular/router';
+
+declare var $:any;
 
 @Component({
   selector: 'app-root',
@@ -7,4 +11,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ){
+    
+    if(this.authService.isSignedIn()){
+      this.router.navigate(['/feed']);
+    }
+  }
+
+
+
 }
