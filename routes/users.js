@@ -14,7 +14,15 @@ router.post('/register', (req, res, next) => {
   let newUser = new User({
     username: req.body.username,
     password: req.body.password,
-    imagepath: 'images/profiles/example/default_' + randomImage + '.jpg'
+    imagepath: 'images/profiles/example/default_' + randomImage + '.jpg',
+    friends: [
+      '5a2c54e106d323033318c117',
+      '5a2c567b921dbb0b13079b54',
+      '5a2c57798b282410344deef0',
+      '5a2c57f14d46b21242321254',
+      '5a2c5847e297ce13feac5a5d',
+      '5a2c5862e297ce13feac5a5e'
+    ]
   });
 
   User.addUser(newUser, (err, user) => {
@@ -62,20 +70,28 @@ router.post('/authenticate', (req, res, next) => {
   });
 });
 
-// Protected route
+// Protected route, gets user detail of logged in user
 router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
   res.json({user: req.user});
 });
 
 
-// Get all users
+// Get all users except of the one who is logged in
 router.get('/', (req, res, next) => {
 
-  User.find({}).select('username _id')
+  var myId = objectID(req.query.myId);
+
+  User.find( { _id: { $nin: myId } } ).select('username _id')
       .exec(function (err, users) {
         if (err) return next(err);
         res.json(users);
     });
+
+    // User.find({}).select('username _id')
+    //     .exec(function (err, users) {
+    //       if (err) return next(err);
+    //       res.json(users);
+    //   });
 
 });
 
@@ -84,9 +100,9 @@ router.get('/', (req, res, next) => {
 router.post('/filter', (req, res, next) => {
 
   var filter = req.body.filter;
-  var myID = objectID(req.body.myID);
+  var myId = objectID(req.body.myId);
 
-  User.find({filter: {$in: filter}, friends: myID}, (err, users) =>{
+  User.find({filter: {$in: filter}, friends: myId}, (err, users) =>{
     if (err) {
       res.send(err);
     } else {

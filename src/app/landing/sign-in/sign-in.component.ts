@@ -39,20 +39,35 @@ export class SignInComponent implements OnInit {
     this.authService.authenticateUser(user).subscribe(data => {
 
       if(data.success) {
-        console.log('user exist');
         // If existing user signed in successful
         this.resetFormFields();
         this.authService.storeUserData(data.token, data.user);
         this.router.navigate(['/feed']);
 
       } else {
-        console.log('new user');
+
         // If not, a new user is registered
         this.authService.registerUser(user).subscribe(data => {
           if(data.success){
 
-          } else {
+            this.authService.authenticateUser(user).subscribe(data => {
 
+              if(data.success) {
+                // If existing user signed in successful
+                this.resetFormFields();
+                this.authService.storeUserData(data.token, data.user);
+                this.router.navigate(['/feed']);
+
+              } else {
+                // If the registration was not successful
+                this.resetFormFields();
+                this.flashMessages.show(data.msg, {cssClass: 'alert-error', timeout: 5000});
+                this.router.navigate(['']);
+
+                }
+            });
+
+          } else {
             // If the registration was not successful
             this.resetFormFields();
             this.flashMessages.show('Something went wrong. Please try again.', {cssClass: 'alert-error', timeout: 5000});
@@ -63,24 +78,6 @@ export class SignInComponent implements OnInit {
       }
     });
 
-    // Second signin-attemp with new user
-    this.authService.authenticateUser(user).subscribe(data => {
-
-      if(data.success) {
-        console.log('user exist');
-        // If existing user signed in successful
-        this.resetFormFields();
-        this.authService.storeUserData(data.token, data.user);
-        this.router.navigate(['/feed']);
-
-      } else {
-        // If the registration was not successful
-        this.resetFormFields();
-        this.flashMessages.show(data.msg, {cssClass: 'alert-error', timeout: 5000});
-        this.router.navigate(['']);
-
-        }
-    });
   }
 
   resetFormFields() {
