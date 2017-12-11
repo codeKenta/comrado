@@ -17,8 +17,11 @@ export class FriendsService {
 
   showUsers(currentUserId) {
     let headers = new Headers();
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('currentUserId', currentUserId );
+
     headers.append('Content-Type', 'application/json');
-    return this.http.get('users', currentUserId, { headers: headers })
+    return this.http.get('users', { headers: headers,  search: params })
       .map(res => res.json());
   }
 
