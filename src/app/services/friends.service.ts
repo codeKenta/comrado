@@ -15,10 +15,10 @@ export class FriendsService {
 
   }
 
-  showUsers() {
+  showUsers(currentUserId) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('users/register', user, { headers: headers })
+    return this.http.get('users', currentUserId, { headers: headers })
       .map(res => res.json());
   }
 

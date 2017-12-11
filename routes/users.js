@@ -79,9 +79,9 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res,
 // Get all users except of the one who is logged in
 router.get('/', (req, res, next) => {
 
-  var myId = objectID(req.query.myId);
+  var currentUserId = objectID(req.query.currentUserId);
 
-  User.find( { _id: { $nin: myId } } ).select('username _id')
+  User.find( { _id: { $nin: currentUserId } } ).select('username _id imagepath')
       .exec(function (err, users) {
         if (err) return next(err);
         res.json(users);
