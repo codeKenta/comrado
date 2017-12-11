@@ -25,6 +25,7 @@ import { ChatComponent }        from './loggedin/friends/friend/chat/chat.compon
 
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
+import { FriendsService } from './services/friends.service';
 import { AuthGuard } from './guards/auth.guard';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 
@@ -82,7 +83,8 @@ const appRoutes: Routes =
   providers: [
     ValidateService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    FriendsService
   ],
   bootstrap: [AppComponent]
 })

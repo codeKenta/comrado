@@ -9,6 +9,7 @@ declare var $:any;
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
+
 export class HeaderComponent implements OnInit {
   user: Object = {
     username: '',
