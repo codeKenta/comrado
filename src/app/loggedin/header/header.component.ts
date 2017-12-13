@@ -24,7 +24,6 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.authService.getProfile().subscribe(profile => {
       this.user = profile.user;
     },

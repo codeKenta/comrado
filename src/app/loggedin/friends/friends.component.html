@@ -1,39 +1,33 @@
 
 
 <div class="container list friends">
-  <div class="requests">
+  <div class="requests" *ngIf="currentUser.friendRequests.length !== 0">
     <h2 class="title">Friend Requests</h2>
 
-    <div class="request">
-      <img src="../../../assets/images/profiles/example/sebastien.jpg" alt="">
-      <p class="username">sebastien</p>
+    <div class="request" *ngFor="let request of requests">
+      <img src="../../../assets/{{request.imagepath}}" alt="">
+      <p class="username">{{request.username}}</p>
       <div class="button-wrapper">
-        <div class="button primary">Accept</div>
-        <div class="button danger">Decline</div>
-      </div>
-    </div>
-
-    <div class="request">
-      <img src="../../../assets/images/profiles/example/anna.jpg" alt="">
-      <p class="username">anna</p>
-      <div class="button-wrapper">
-        <div class="button primary">Accept</div>
-        <div class="button danger">Decline</div>
+        <div class="button primary" (click)="acceptRequest(request._id)">Accept</div>
+        <div class="button danger" (click)="denyRequest(request._id)">Deny</div>
       </div>
     </div>
 
   </div>
 
-  <!-- user -->
-  <div *ngFor="let user of users"  class="row flex just-space-between">
-    <div class="flex group" routerLink="/friend/{{user.username}}">
-      <img src="../../../assets/{{user.imagepath}}" alt="">
+  <a class="row flex just-space-between friend-link"
+    *ngFor="let friend of friends | filterByUsername:search"
+    routerLink="/friend/{{friend.username}}">
+    <div class="flex group">
+      <img src="../../../assets/{{friend.imagepath}}" alt="">
       <div class="flex vert-center">
-        <span class="username">{{user.username}}</span>
+        <span class="username">{{friend.username}}</span>
       </div>
     </div>
-  </div>
-  <!-- end -->
+  </a>
+
+  <p class="empty-list" *ngIf="currentUser.friends.length === 0">
+    You Have 0 Friends</p>
 
 
 </div>
@@ -45,7 +39,7 @@
       <app-search></app-search>
     </span>
     <span class="input-wrapper">
-      <input class="input" type="text" name="searchFriend">
+      <input class="input" type="text" [(ngModel)]="search" name="search">
     </span>
   </div>
   <div class="flex vert-center">

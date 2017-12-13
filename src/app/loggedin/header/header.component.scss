@@ -51,12 +51,13 @@ nav {
 
 .account {
   display: none;
+  z-index: 5;
   padding-top: 20px;
   position: fixed;
   top: 70px;
   right: 0;
   width: 200px;
-  background: white;
+  background: $baseColorLight;
   border-radius: 0 0 5px 5px;
   box-shadow: 0px 0px 5px -2px rgba(0,0,0,0.35);
 
@@ -69,13 +70,13 @@ nav {
    }
    .username {
      text-align: center;
-     color: $baseColor1;
+     color: white;
      font-size: 18px;
    }
    .row {
      padding: 15px;
-     border-top: 1px solid $mediumLightGrey;
-     color: $mediumGrey;
+     border-top: 1px solid white;
+     color: white;
      .fa {
        margin-right: 10px;
      }
@@ -85,7 +86,7 @@ nav {
      }
      &:active {
        background: lighten($lightGrey, 7);
-        color: $baseColor1;
+       color: $baseColor1;
      }
    }
 }

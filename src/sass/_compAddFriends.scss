@@ -14,11 +14,14 @@
   }
 
   .right-wrapper {
+    padding-right: 10px;
     .message {
-      color: $mediumLightGrey;
+      color: $mediumGrey;
       font-size: 12px;
+      text-align: right;
     }
     .sendRequestBtn {
+      font-size: 20px;
       color: $complementColor;
     }
   }

@@ -25,6 +25,21 @@ export class FriendsService {
       .map(res => res.json());
   }
 
+  // Gets a list of users that matches an array of user ids
+  getUsersByIds(userIds) {
+    return this.http.post('users/byarray', userIds)
+      .map(res => res.json());
+  }
+
+  // Get one user by id
+  getUserById(userId){
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('currentUserId', userId );
+    return this.http.get('users/userbyid', { search: params })
+      .map(res => res.json());
+  }
+
+  // Sends a friend request
   sendRequest(requesterId, recieverId) {
     let inputData = {
       requesterId: requesterId,
@@ -35,7 +50,27 @@ export class FriendsService {
       .map(res => res.json());
   }
 
-  acceptRequest() {
+  // Accepts friend request
+  acceptRequest(requesterId, accepterId) {
+    let inputData = {
+      requesterId: requesterId,
+      accepterId: accepterId
+    }
+
+    return this.http.put('users/request/accept', inputData)
+      .map(res => res.json());
+
+  }
+
+  // Denies friend request
+  denyRequest(requesterId, denierId) {
+    let inputData = {
+      requesterId: requesterId,
+      denierId: denierId
+    }
+
+    return this.http.put('users/request/deny', inputData)
+      .map(res => res.json());
 
   }
 

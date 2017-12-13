@@ -12,16 +12,11 @@ var express   = require('express'),
 router.post('/register', (req, res, next) => {
   let randomImage = Math.floor(Math.random() * 10) + 1;
   let newUser = new User({
-    username: req.body.username,
+    username: req.body.username.toLowerCase(),
     password: req.body.password,
     imagepath: 'images/profiles/example/default_' + randomImage + '.jpg',
     friends: [
-      '5a2c54e106d323033318c117',
-      '5a2c567b921dbb0b13079b54',
-      '5a2c57798b282410344deef0',
-      '5a2c57f14d46b21242321254',
-      '5a2c5847e297ce13feac5a5d',
-      '5a2c5862e297ce13feac5a5e'
+      '5a2c596132ea4619a103dafe'
     ]
   });
 
@@ -35,7 +30,7 @@ router.post('/register', (req, res, next) => {
 });
 
 router.post('/authenticate', (req, res, next) => {
-  var username = req.body.username;
+  var username = req.body.username.toLowerCase();
   var password = req.body.password;
 
   User.findOne({username: username}, (err, user) => {
@@ -81,7 +76,32 @@ router.get('/', (req, res, next) => {
 
   var currentUserId = objectID(req.query.currentUserId);
 
-  User.find( { _id: { $nin: currentUserId } } ).select('username _id imagepath friends friendRequests')
+  User.find( { _id: { $nin: currentUserId } } ).select('-password -__v')
+      .exec(function (err, users) {
+        if (err) return next(err);
+        res.json(users);
+    });
+
+});
+
+// Get all one user by id
+router.get('/userbyid', (req, res, next) => {
+
+  var currentUserId = objectID(req.query.currentUserId);
+
+  User.findById(currentUserId).select('-password -__v')
+      .exec(function (err, users) {
+        if (err) return next(err);
+        res.json(users);
+    });
+
+});
+
+router.post('/byarray', (req, res, next) => {
+
+  usersIdArray = req.body;
+
+  User.find( { _id: { $in: usersIdArray } } ).select('username _id imagepath')
       .exec(function (err, users) {
         if (err) return next(err);
         res.json(users);
@@ -106,7 +126,6 @@ router.post('/filter', (req, res, next) => {
 
 });
 
-
 router.put('/request', (req, res, next) => {
 
   var requesterId = objectID(req.body.requesterId);
@@ -122,16 +141,15 @@ router.put('/request', (req, res, next) => {
 
 });
 
+router.put('/request/accept', (req, res, next) => {
 
-router.put('/accept', (req, res, next) => {
-
-  var requesterID = objectID(req.body.requesterID);
-  var accepterID = objectID(req.body.accepterID);
+  var requesterId = objectID(req.body.requesterId);
+  var accepterId = objectID(req.body.accepterId);
 
   var allPromises = [];
 
-  allPromises.push(Queries.acceptRequest(requesterID, accepterID));
-  allPromises.push(Queries.fulfillFriendship(requesterID, accepterID));
+  allPromises.push(Queries.acceptRequest(requesterId, accepterId));
+  allPromises.push(Queries.fulfillFriendship(requesterId, accepterId));
 
 	Promise.all(allPromises).then((res) => {
 	 	res.status(200);
@@ -139,6 +157,23 @@ router.put('/accept', (req, res, next) => {
 	.catch((err) => {
     res.send(err);
 	})
+
+});
+
+router.put('/request/deny', (req, res, next) => {
+
+  var requesterId = objectID(req.body.requesterId);
+  var denierId = objectID(req.body.denierId);
+
+  User.findOneAndUpdate({_id: denierId }, {$pull: { friendRequests: requesterId } }, function(err){
+    if (err) {
+      res.send(err);
+    } else {
+      res.json({success: true, msg: 'Request denied'});
+    }
+  });
+
+
 
 });
 

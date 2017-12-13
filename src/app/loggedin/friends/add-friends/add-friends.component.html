@@ -33,13 +33,13 @@
 
     <!-- Checks if friend -->
     <div *ngIf="user.friends.includes(currentUser.id);else notFriend">
-        <span class="message">friend</span>
+        <span class="message">Friend</span>
     </div>
 
     <ng-template #notFriend>
 
       <div *ngIf="user.friendRequests.includes(currentUser.id);else notSent">
-        <span class="message">Waiting for response</span>
+        <span class="message">Response Sent</span>
       </div>
 
       <ng-template #notSent>

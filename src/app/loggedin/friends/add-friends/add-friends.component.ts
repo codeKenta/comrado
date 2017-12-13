@@ -33,8 +33,6 @@ export class AddFriendsComponent implements OnInit {
     });
   }
 
-
-
   ngOnInit() {
     $('#friends-link').addClass('active');
   }
@@ -57,9 +55,5 @@ export class AddFriendsComponent implements OnInit {
 
   }
 
-  // checks if the input parameter are included in
-  checkIfRequestIsSent(friendRequests){
-    return friendRequests.includes(this.currentUser.id);
-  }
 
 }

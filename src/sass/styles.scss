@@ -232,7 +232,13 @@ BUTTONS
     }
   }
 
-
+  .empty-list {
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    text-align: center;
+    color: $baseColor1;
+  }
   .row {
     padding: 15px;
     border-bottom: 1px solid $mediumLightGrey;
@@ -260,7 +266,14 @@ BUTTONS
     }
   }
 }
-
+.friend-link.row {
+  @include hover(){
+    background: lighten($lightGrey, 5);
+  }
+  &:active {
+    background: $lightGrey;
+  }
+}
 .my-activity {
   position: fixed;
   box-sizing: border-box;

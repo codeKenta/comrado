@@ -10,47 +10,110 @@ import { FriendsService } from '../../services/friends.service';
   styleUrls: ['./friends.component.scss']
 })
 export class FriendsComponent implements OnInit {
-  // user: Object = {
-  //   _id: '',
-  //   username: '',
-  //   imagepath: '',
-  //   friendRequests: [],
-  //   friends: []
-  // };
-
-  // user: object;
-
-  // users: any[];
+  currentUser: any;
+  requests: any[];
+  friends: any[];
+  search: string;
 
 
   constructor(
     private router: Router,
     private authService: AuthService,
-    private friendsService: FriendsService,
+    private friendsService: FriendsService
   ) {
 
-    // this.authService.getProfile().subscribe(profile => {
+    // get data for current logged in user
+    this.currentUser = this.authService.getUser();
 
-    //   this.friendsService.getUsers(profile.user._id).subscribe(users => {
-    //     this.users = users;
-    //     console.log(this.users);
-    //
-    //   }, err => {
-    //     console.log(err);
-    //     return false;
-    //   });
-    // },
-    // err => {
-    //   console.log(err);
-    //   return false;
-    // });
+    // Get details about friends if there is any
+    if(this.currentUser.friends.length !== 0) {
+      this.getUsersByIds(this.currentUser.friends, 'friends');
+    }
+
+    // Get details about requesters if there is any
+    if(this.currentUser.friendRequests.length !== 0) {
+      this.getUsersByIds(this.currentUser.friendRequests, 'requests');
+    }
 
    }
 
   ngOnInit() {
 
 
+  }
+
+  acceptRequest(requesterId){
+    // removes the request and making friendship relationship between booth users
+    this.friendsService.acceptRequest(requesterId, this.currentUser.id).subscribe(result => {
+
+      // Updates user information with new friend
+      this.friendsService.getUserById(this.currentUser.id).subscribe(updatedUser => {
+
+        // updates the user information
+        this.currentUser = updatedUser;
+        // also storing the updated user in the service so
+        // other components can reach the new data
+        this.authService.setUser(updatedUser);
+
+        // Finally the friends-array is being updated
+        this.getUsersByIds(this.currentUser.friends, 'friends');
+
+      }, err => {
+        console.log(err);
+        return false;
+      });
+
+
+      }, err => {
+        console.log(err);
+        return false;
+      });
+  }
+
+  denyRequest(requesterId){
+    // removes the request from the curren user
+    this.friendsService.denyRequest(requesterId, this.currentUser.id).subscribe(result => {
+
+      // Updates user information with new list of request
+      this.friendsService.getUserById(this.currentUser.id).subscribe(updatedUser => {
+
+          // updates the user information
+          this.currentUser = updatedUser;
+          // also storing the updated user in the service so
+          // other components can reach the new data
+          this.authService.setUser(updatedUser);
+
+          // Finally the request-array is being updated
+          this.getUsersByIds(this.currentUser.friendRequests, 'requests');
+
+        }, err => {
+          console.log(err);
+          return false;
+        });
+
+      }, err => {
+        console.log(err);
+        return false;
+    });
+
 
   }
+
+
+  // Dynamic function which can be used to update both requests- and friends-array
+  // storageVariable-parameter is the string-name of the variable where result
+  // will be stored outside this function
+  getUsersByIds(arrayOfIds, storageVariable){
+    this.friendsService.getUsersByIds(arrayOfIds).
+    subscribe(result => {
+      // this.friends = result;
+      this[storageVariable] = result;
+      return true;
+    }, err => {
+      console.log(err);
+      return false;
+    });
+  }
+
 
 }
