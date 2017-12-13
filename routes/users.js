@@ -78,20 +78,14 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res,
 
 // Get all users except of the one who is logged in
 router.get('/', (req, res, next) => {
-  
+
   var currentUserId = objectID(req.query.currentUserId);
 
-  User.find( { _id: { $nin: currentUserId } } ).select('username _id imagepath')
+  User.find( { _id: { $nin: currentUserId } } ).select('username _id imagepath friends friendRequests')
       .exec(function (err, users) {
         if (err) return next(err);
         res.json(users);
     });
-
-    User.find({}).select('username _id')
-        .exec(function (err, users) {
-          if (err) return next(err);
-          res.json(users);
-      });
 
 });
 
@@ -115,14 +109,14 @@ router.post('/filter', (req, res, next) => {
 
 router.put('/request', (req, res, next) => {
 
-  var requesterID = objectID(req.body.requesterID);
-  var recieverID = objectID(req.body.recieverID);
+  var requesterId = objectID(req.body.requesterId);
+  var recieverId = objectID(req.body.recieverId);
 
-  User.findOneAndUpdate({_id: recieverID }, {$push: { friendRequests: requesterID }}, function(err, reciever){
+  User.findOneAndUpdate({_id: recieverId }, {$push: { friendRequests: requesterId }}, function(err){
     if (err) {
       res.send(err);
     } else {
-      res.json(reciever);
+      res.json({success: true, msg: 'Request was successful'});
     }
   });
 

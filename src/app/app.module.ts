@@ -29,6 +29,8 @@ import { FriendsService } from './services/friends.service';
 import { AuthGuard } from './guards/auth.guard';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 
+import { FilterPipe } from './pipes/filter.pipe';
+
 const appRoutes: Routes =
 [
   {
@@ -70,7 +72,8 @@ const appRoutes: Routes =
     SearchComponent,
     AddFriendsComponent,
     FriendComponent,
-    ChatComponent
+    ChatComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

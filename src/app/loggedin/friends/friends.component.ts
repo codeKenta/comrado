@@ -17,10 +17,10 @@ export class FriendsComponent implements OnInit {
   //   friendRequests: [],
   //   friends: []
   // };
-  
+
   // user: object;
 
-  users: any[];
+  // users: any[];
 
 
   constructor(
@@ -29,21 +29,21 @@ export class FriendsComponent implements OnInit {
     private friendsService: FriendsService,
   ) {
 
-    this.authService.getProfile().subscribe(profile => {
+    // this.authService.getProfile().subscribe(profile => {
 
-      this.friendsService.getUsers(profile.user._id).subscribe(users => {
-        this.users = users;
-        console.log(this.users);
-
-      }, err => {
-        console.log(err);
-        return false;
-      });
-    },
-    err => {
-      console.log(err);
-      return false;
-    });
+    //   this.friendsService.getUsers(profile.user._id).subscribe(users => {
+    //     this.users = users;
+    //     console.log(this.users);
+    //
+    //   }, err => {
+    //     console.log(err);
+    //     return false;
+    //   });
+    // },
+    // err => {
+    //   console.log(err);
+    //   return false;
+    // });
 
    }
 

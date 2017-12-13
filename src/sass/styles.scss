@@ -104,6 +104,9 @@ FORMS
     border: 1px solid $baseColor1;
     border-radius: 5px 0 0 5px;
     svg {
+      position: relative;
+      left: 3px;
+      top: 1px;
       fill: white;
     }
   }

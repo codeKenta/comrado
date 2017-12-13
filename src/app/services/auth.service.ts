@@ -25,6 +25,7 @@ export class AuthService {
        .map(res => res.json());
    }
 
+
    storeUserData(token, user){
      localStorage.setItem('id_token', token);
      localStorage.setItem('user', JSON.stringify(user));
@@ -41,9 +42,14 @@ export class AuthService {
        .map(res => res.json());
    }
 
+
    loadToken(){
      const token = localStorage.getItem('id_token');
      this.authToken = token;
+   }
+
+   getUser(){
+     return this.user;
    }
 
    signOut(){
