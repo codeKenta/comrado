@@ -1,8 +1,6 @@
 var express   = require('express'),
     router    = express.Router(),
     mongoose  = require('mongoose'),
-    objectID  = require('objectid'),
-    sanitize  = require('mongo-sanitize'),
     passport  = require('passport'),
     jwt       = require('jsonwebtoken'),
     Queries   = require('./queries'),
@@ -74,7 +72,7 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res,
 // Get all users except of the one who is logged in
 router.get('/', (req, res, next) => {
 
-  var currentUserId = objectID(req.query.currentUserId);
+  var currentUserId = mongoose.Types.ObjectId(req.query.currentUserId);
 
   User.find( { _id: { $nin: currentUserId } } ).select('-password -__v')
       .exec(function (err, users) {
@@ -87,7 +85,7 @@ router.get('/', (req, res, next) => {
 // Get one user by id
 router.get('/id/:id', (req, res, next) => {
 
-  var currentUserId = objectID(req.params.id);
+  var currentUserId = mongoose.Types.ObjectId(req.params.id);
 
   User.findById(currentUserId).select('-password -__v')
       .exec(function (err, users) {
@@ -128,7 +126,7 @@ router.post('/ids', (req, res, next) => {
 router.post('/filter', (req, res, next) => {
 
   var filter = req.body.filter;
-  var myId = objectID(req.body.myId);
+  var myId = mongoose.Types.ObjectId(req.body.myId);
 
   User.find({filter: {$in: filter}, friends: myId}, (err, users) =>{
     if (err) {
@@ -142,8 +140,8 @@ router.post('/filter', (req, res, next) => {
 
 router.put('/request', (req, res, next) => {
 
-  var requesterId = objectID(req.body.requesterId);
-  var recieverId = objectID(req.body.recieverId);
+  var requesterId = mongoose.Types.ObjectId(req.body.requesterId);
+  var recieverId = mongoose.Types.ObjectId(req.body.recieverId);
 
   User.findOneAndUpdate({_id: recieverId }, {$push: { friendRequests: requesterId }}, function(err){
     if (err) {
@@ -157,8 +155,8 @@ router.put('/request', (req, res, next) => {
 
 router.put('/request/accept', (req, res, next) => {
 
-  var requesterId = objectID(req.body.requesterId);
-  var accepterId = objectID(req.body.accepterId);
+  var requesterId = mongoose.Types.ObjectId(req.body.requesterId);
+  var accepterId = mongoose.Types.ObjectId(req.body.accepterId);
 
   var allPromises = [];
 
@@ -176,9 +174,8 @@ router.put('/request/accept', (req, res, next) => {
 
 // End friendship between two users
 router.put('/endfriendship', (req, res, next) => {
-    console.log(req.body);
-  var currentUserId = objectID(req.body.currentUserId);
-  var friendId = objectID(req.body.friendId);
+  var currentUserId = mongoose.Types.ObjectId(req.body.currentUserId);
+  var friendId = mongoose.Types.ObjectId(req.body.friendId);
   let users = [];
   users.push(currentUserId, friendId );
 
@@ -197,8 +194,8 @@ router.put('/endfriendship', (req, res, next) => {
 
 router.put('/request/deny', (req, res, next) => {
 
-  var requesterId = objectID(req.body.requesterId);
-  var denierId = objectID(req.body.denierId);
+  var requesterId = mongoose.Types.ObjectId(req.body.requesterId);
+  var denierId = mongoose.Types.ObjectId(req.body.denierId);
 
   User.findOneAndUpdate({_id: denierId }, {$pull: { friendRequests: requesterId } }, function(err){
     if (err) {

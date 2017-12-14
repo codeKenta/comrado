@@ -18,6 +18,7 @@ var UserSchema = new mongoose.Schema({
   friendRequests: [
     ObjectId
   ]
+
 });
 
 module.exports = mongoose.model("User", UserSchema);

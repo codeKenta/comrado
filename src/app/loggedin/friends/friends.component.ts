@@ -36,8 +36,6 @@ export class FriendsComponent implements OnInit {
       this.getUsersByIds(this.currentUser.friendRequests, 'requests');
     }
 
-    console.log(this.route.queryParams);
-
     this.route.queryParams.subscribe((params)=>{
         if(params['reload'] == '1') {
           // Reloads the friends if there have been a change to friends-list in other component

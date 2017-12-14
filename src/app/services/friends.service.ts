@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams} from '@angular/http';
-
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -11,7 +10,6 @@ export class FriendsService {
   filterMyFriends() {
 
   }
-
 
   // Gets a list of all users except of the current user
   getUsers(currentUserId) {
@@ -87,5 +85,7 @@ export class FriendsService {
       .map(res => res.json());
 
   }
+
+
 
 }

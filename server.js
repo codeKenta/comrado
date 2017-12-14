@@ -4,16 +4,17 @@
  * Mid Swede University 2018.
 */
 
-var   express     = require('express'),
-      bodyParser  = require('body-parser'),
-      path        = require('path'),
-      http        = require('http'),
-      mongoose    = require('mongoose'),
-      app         = express(),
-      server      = http.createServer(app),
-      passport    = require('passport'),
+var   express       = require('express'),
+      bodyParser    = require('body-parser'),
+      path          = require('path'),
+      http          = require('http'),
+      mongoose      = require('mongoose'),
+      app           = express(),
+      server        = http.createServer(app),
+      passport      = require('passport'),
 
-      usersRoute  = require('./routes/users');
+      usersRoute    = require('./routes/users');
+      messageRoute  = require('./routes/message');
 
 // Set Port
 const port = process.env.PORT || '3000';
@@ -46,6 +47,7 @@ require('./passport/passport.js')(passport);
 
 // Routes
 app.use('/users', usersRoute);
+app.use('/message', messageRoute);
 
 // Send all other requests to the Angular app
 app.get('*', (req, res) => {
