@@ -50,7 +50,7 @@ const appRoutes: Routes =
   },
 
   {
-    path: 'friend/:friend',
+    path: 'friend/:username',
     component: FriendComponent,
     canActivate: [AuthGuard]
   }

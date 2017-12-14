@@ -7,12 +7,19 @@
         Friends
       </a>
 
-      <span class="extended-friend-menu">...</span>
+      <span class="extended-menu-friend-btn">...</span>
+
+      <div id="extended-menu-friend" class="extended-menu">
+        <div class="row" (click)="removeFriend(friend._id)">
+          <i class="fa fa-times" aria-hidden="true"></i>
+          <span>Remove Friend</span>
+        </div>
+      </div>
     </div>
 
     <div class="friend">
-      <p class="username">wyatt</p>
-      <img src="../../../assets/images/profiles/example/wyatt.jpg" alt="">
+      <p class="username">{{friend.username}}</p>
+      <img src="../../../assets/{{friend.imagepath}}" alt="{{friend.username}}">
 
     </div>
 

@@ -12,9 +12,6 @@ export class FriendsService {
 
   }
 
-  myFriends() {
-
-  }
 
   // Gets a list of all users except of the current user
   getUsers(currentUserId) {
@@ -27,15 +24,20 @@ export class FriendsService {
 
   // Gets a list of users that matches an array of user ids
   getUsersByIds(userIds) {
-    return this.http.post('users/byarray', userIds)
+    return this.http.post('users/ids', userIds)
       .map(res => res.json());
   }
 
   // Get one user by id
   getUserById(userId){
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('currentUserId', userId );
-    return this.http.get('users/userbyid', { search: params })
+    return this.http.get('users/id/' + userId)
+      .map(res => res.json());
+  }
+
+  // Get one user by id
+  getUserByUsername(username){
+
+    return this.http.get('users/username/' + username)
       .map(res => res.json());
   }
 
@@ -74,7 +76,15 @@ export class FriendsService {
 
   }
 
-  removeFriend() {
+  // ends friendship between two friends
+  endFriendship(currentUserId, friendId) {
+    let inputData = {
+      currentUserId: currentUserId,
+      friendId: friendId
+    }
+
+    return this.http.put('users/endfriendship', inputData)
+      .map(res => res.json());
 
   }
 

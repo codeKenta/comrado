@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FriendsService } from '../../services/friends.service';
 
@@ -18,6 +18,7 @@ export class FriendsComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private authService: AuthService,
     private friendsService: FriendsService
   ) {
@@ -35,9 +36,33 @@ export class FriendsComponent implements OnInit {
       this.getUsersByIds(this.currentUser.friendRequests, 'requests');
     }
 
+    console.log(this.route.queryParams);
+
+    this.route.queryParams.subscribe((params)=>{
+        if(params['reload'] == '1') {
+          // Reloads the friends if there have been a change to friends-list in other component
+          // like when removing friend and then beein redirected here
+          this.friendsService.getUserById(this.currentUser.id).subscribe(updatedUser => {
+
+            // Updates current user information
+            this.currentUser = updatedUser;
+            this.authService.setUser(updatedUser);
+
+            // loads new list of friends from the updated current user data
+            this.getUsersByIds(this.currentUser.friends, 'friends');
+          }, err => {
+            console.log(err);
+            return false;
+          });
+
+        }
+      });
+
+
    }
 
   ngOnInit() {
+
 
 
   }
@@ -106,7 +131,6 @@ export class FriendsComponent implements OnInit {
   getUsersByIds(arrayOfIds, storageVariable){
     this.friendsService.getUsersByIds(arrayOfIds).
     subscribe(result => {
-      // this.friends = result;
       this[storageVariable] = result;
       return true;
     }, err => {

@@ -32,6 +32,7 @@ export class HeaderComponent implements OnInit {
       return false;
     });
 
+
     $(".link").click( function(){
       $("#extended-account-menu").slideUp();
     });

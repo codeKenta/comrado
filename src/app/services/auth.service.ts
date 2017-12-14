@@ -51,7 +51,6 @@ export class AuthService {
      localStorage.setItem('user', JSON.stringify(user));
    }
 
-
    loadToken(){
      const token = localStorage.getItem('id_token');
      this.authToken = token;

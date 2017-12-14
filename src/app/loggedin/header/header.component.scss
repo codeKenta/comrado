@@ -82,7 +82,7 @@ nav {
      }
      @include hover(){
        background: lighten($lightGrey, 5);
-
+       color: $baseColor1;
      }
      &:active {
        background: lighten($lightGrey, 7);

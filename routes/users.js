@@ -84,10 +84,10 @@ router.get('/', (req, res, next) => {
 
 });
 
-// Get all one user by id
-router.get('/userbyid', (req, res, next) => {
+// Get one user by id
+router.get('/id/:id', (req, res, next) => {
 
-  var currentUserId = objectID(req.query.currentUserId);
+  var currentUserId = objectID(req.params.id);
 
   User.findById(currentUserId).select('-password -__v')
       .exec(function (err, users) {
@@ -97,7 +97,21 @@ router.get('/userbyid', (req, res, next) => {
 
 });
 
-router.post('/byarray', (req, res, next) => {
+// Get one user by username
+router.get('/username/:username', (req, res, next) => {
+
+  var username = req.params.username;
+
+  User.findOne({username: username}).select('-password -__v')
+      .exec(function (err, users) {
+        if (err) return next(err);
+        res.json(users);
+    });
+
+});
+
+// Get users  by array of IDs
+router.post('/ids', (req, res, next) => {
 
   usersIdArray = req.body;
 
@@ -157,6 +171,27 @@ router.put('/request/accept', (req, res, next) => {
 	.catch((err) => {
     res.send(err);
 	})
+
+});
+
+// End friendship between two users
+router.put('/endfriendship', (req, res, next) => {
+    console.log(req.body);
+  var currentUserId = objectID(req.body.currentUserId);
+  var friendId = objectID(req.body.friendId);
+  let users = [];
+  users.push(currentUserId, friendId );
+
+  User.updateMany(
+      { _id: { $in: users }},
+      { $pullAll: { friends: users }},
+       function(err){
+    if (err) {
+      res.send(err);
+    } else {
+      res.json({success: true, msg: 'Friendship was successfully ended'});
+    }
+  });
 
 });
 

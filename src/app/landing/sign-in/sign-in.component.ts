@@ -62,7 +62,7 @@ export class SignInComponent implements OnInit {
                 // If the registration was not successful
                 this.resetFormFields();
                 this.flashMessages.show(data.msg, {cssClass: 'alert-error', timeout: 5000});
-                this.router.navigate(['']);
+                this.router.navigate(['/']);
 
                 }
             });
@@ -71,7 +71,7 @@ export class SignInComponent implements OnInit {
             // If the registration was not successful
             this.resetFormFields();
             this.flashMessages.show('Something went wrong. Please try again.', {cssClass: 'alert-error', timeout: 5000});
-            this.router.navigate(['']);
+            this.router.navigate(['/']);
           }
 
         });
