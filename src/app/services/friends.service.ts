@@ -9,7 +9,7 @@ export class FriendsService {
 
 
   setMyFilter(currentUser, filter) {
-    inputData = {
+    let inputData = {
       currentUserId: currentUser,
       filter: filter
     }
@@ -17,10 +17,10 @@ export class FriendsService {
     return this.http.put('users/setfilter', inputData)
       .map(res => res.json());
   }
-  
+
 
   filterMyFriends(currentUser, filter) {
-    inputData = {
+    let inputData = {
       currentUserId: currentUser,
       filter: filter
     }
