@@ -7,7 +7,7 @@ export class FriendsService {
 
   constructor(private http:Http) { }
 
-
+  // Sets the filter which later matches the friends
   setMyFilter(currentUser, filter) {
     let inputData = {
       currentUserId: currentUser,
@@ -18,8 +18,8 @@ export class FriendsService {
       .map(res => res.json());
   }
 
-
-  filterMyFriends(currentUser, filter) {
+  // Use the filter and matches the friends
+  matchFriends(currentUser, filter) {
     let inputData = {
       currentUserId: currentUser,
       filter: filter
@@ -52,7 +52,6 @@ export class FriendsService {
 
   // Get one user by id
   getUserByUsername(username){
-
     return this.http.get('users/username/' + username)
       .map(res => res.json());
   }

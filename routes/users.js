@@ -144,22 +144,22 @@ router.put('/setfilter', (req, res, next) => {
 
 });
 
-
+// Matches friends by filter
 router.post('/match', (req, res, next) => {
 
   var filter = req.body.filter;
   var currentUserId = mongoose.Types.ObjectId(req.body.currentUserId);
 
-  User.find({filter: {$in: filter}, friends: currentUserId}, (err, users) =>{
-    if (err) {
-      res.send(err);
-    } else {
-      res.json(users);
-    }
-  });
+  User.find({filter: {$in: filter}, friends: currentUserId}).select('username _id imagepath filter')
+      .exec(function (err, users) {
+        if (err) return next(err);
+        res.json(users);
+    });
 
 });
 
+
+// Send friend request
 router.put('/request', (req, res, next) => {
 
   var requesterId = mongoose.Types.ObjectId(req.body.requesterId);
@@ -175,6 +175,7 @@ router.put('/request', (req, res, next) => {
 
 });
 
+// Accept friend request
 router.put('/request/accept', (req, res, next) => {
 
   var requesterId = mongoose.Types.ObjectId(req.body.requesterId);
@@ -193,6 +194,20 @@ router.put('/request/accept', (req, res, next) => {
 	})
 
 });
+
+// Deny friend request
+router.put('/request/deny', (req, res, next) => {
+
+  var requesterId = mongoose.Types.ObjectId(req.body.requesterId);
+  var denierId = mongoose.Types.ObjectId(req.body.denierId);
+
+  User.findOneAndUpdate({_id: denierId }, {$pull: { friendRequests: requesterId } }, function(err){
+    if (err) {
+      res.send(err);
+    } else {
+      res.json({success: true, msg: 'Request denied'});
+    }
+  });
 
 // End friendship between two users
 router.put('/endfriendship', (req, res, next) => {
@@ -214,18 +229,7 @@ router.put('/endfriendship', (req, res, next) => {
 
 });
 
-router.put('/request/deny', (req, res, next) => {
 
-  var requesterId = mongoose.Types.ObjectId(req.body.requesterId);
-  var denierId = mongoose.Types.ObjectId(req.body.denierId);
-
-  User.findOneAndUpdate({_id: denierId }, {$pull: { friendRequests: requesterId } }, function(err){
-    if (err) {
-      res.send(err);
-    } else {
-      res.json({success: true, msg: 'Request denied'});
-    }
-  });
 
 
 

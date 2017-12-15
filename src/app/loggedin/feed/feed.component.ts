@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgClass } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
+import { FriendsService } from '../../services/friends.service';
 
 @Component({
   selector: 'app-feed',
@@ -7,39 +9,55 @@ import { NgClass } from '@angular/common';
   styleUrls: ['./feed.component.scss']
 })
 export class FeedComponent implements OnInit {
-  // filter = {
-  //   eat: true,
-  //   drink: true,
-  //   coffee: false,
-  //   game: false
-  // }
 
-  filter = [
-    'eat',
-    'drink',
-  ];
+  currentUserId: string;
+  filter: any[];
+  matchedFriends: any;
 
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private friendsService: FriendsService
+  ) {
+
+    this.currentUserId = this.authService.getUser().id;
+    this.filter = this.authService.getUser().filter;
+    this.matchFriends();
+
+   }
 
   ngOnInit() {
 
-    console.log(this.filter.includes('eat'));
   }
 
   setFilter(filterItem) {
 
+    // Deactivate filter
     if( this.filter.includes(filterItem) ){
-      console.log("Avaktivera");
       let index = this.filter.indexOf(filterItem);
       this.filter.splice(index, 1);
+    // Or activate filter
     } else {
-      console.log("Aktivera");
       this.filter.push(filterItem);
     }
-    console.log(this.filter)
-// Send
 
-    // this.filter[filter] = !this.filter[filter];
+    this.friendsService.setMyFilter(this.currentUserId, this.filter).subscribe(result => {
+      this.matchFriends();
+
+    }, err => {
+      console.log(err);
+      return false;
+    });
+
+  }
+
+  matchFriends(){
+    this.friendsService.matchFriends(this.currentUserId, this.filter).subscribe(friends => {
+      this.matchedFriends = friends;
+      return true;
+    }, err => {
+      console.log(err);
+      return false;
+    });
   }
 
 
