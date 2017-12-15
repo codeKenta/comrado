@@ -7,19 +7,41 @@ import { NgClass } from '@angular/common';
   styleUrls: ['./feed.component.scss']
 })
 export class FeedComponent implements OnInit {
-  activities = {
-    eat: true,
-    drink: true,
-    coffee: false,
-    game: false
-  }
+  // filter = {
+  //   eat: true,
+  //   drink: true,
+  //   coffee: false,
+  //   game: false
+  // }
+
+  filter = [
+    'eat',
+    'drink',
+  ];
+
   constructor() { }
 
   ngOnInit() {
+
+    console.log(this.filter.includes('eat'));
   }
 
-  toggleActivity(activity) {
-    this.activities[activity] = !this.activities[activity];
+  setFilter(filterItem) {
+
+    if( this.filter.includes(filterItem) ){
+      console.log("Avaktivera");
+      let index = this.filter.indexOf(filterItem);
+      this.filter.splice(index, 1);
+    } else {
+      console.log("Aktivera");
+      this.filter.push(filterItem);
+    }
+    console.log(this.filter)
+// Send
+
+    // this.filter[filter] = !this.filter[filter];
   }
+
+
 
 }

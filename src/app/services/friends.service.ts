@@ -7,8 +7,26 @@ export class FriendsService {
 
   constructor(private http:Http) { }
 
-  filterMyFriends() {
 
+  setMyFilter(currentUser, filter) {
+    inputData = {
+      currentUserId: currentUser,
+      filter: filter
+    }
+
+    return this.http.put('users/setfilter', inputData)
+      .map(res => res.json());
+  }
+  
+
+  filterMyFriends(currentUser, filter) {
+    inputData = {
+      currentUserId: currentUser,
+      filter: filter
+    }
+
+    return this.http.post('users/match', inputData)
+      .map(res => res.json());
   }
 
   // Gets a list of all users except of the current user

@@ -123,13 +123,34 @@ router.post('/ids', (req, res, next) => {
 });
 
 
-
-router.post('/filter', (req, res, next) => {
+// Sets the filter which is used for matching active friends
+router.put('/setfilter', (req, res, next) => {
 
   var filter = req.body.filter;
-  var myId = mongoose.Types.ObjectId(req.body.myId);
+  var currentUserId = mongoose.Types.ObjectId(req.body.currentUserId);
 
-  User.find({filter: {$in: filter}, friends: myId}, (err, users) =>{
+  User.findById(currentUserId, (err, user) => {
+    user.filter = [];
+    user.filter = user.filter.concat(filter);
+    user.save(()=>{
+      User.findById(currentUserId).select('-password -__v')
+          .exec(function (err, users) {
+            if (err) return next(err);
+            res.json(users);
+        });
+    });
+  });
+
+
+});
+
+
+router.post('/match', (req, res, next) => {
+
+  var filter = req.body.filter;
+  var currentUserId = mongoose.Types.ObjectId(req.body.currentUserId);
+
+  User.find({filter: {$in: filter}, friends: currentUserId}, (err, users) =>{
     if (err) {
       res.send(err);
     } else {

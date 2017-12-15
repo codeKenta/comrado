@@ -95,19 +95,19 @@
 
 <div class="my-activity flex just-space-between">
 
-  <div class="item" (click)="toggleActivity('eat')" [ngClass]="{ 'active' : activities.eat }">
+  <div class="item" (click)="setFilter('eat')" [ngClass]="{ 'active' : filter.includes('eat') }">
     <app-eat></app-eat>
   </div>
 
-  <div class="item" (click)="toggleActivity('drink')" [ngClass]="{ 'active' : activities.drink }">
+  <div class="item" (click)="setFilter('drink')" [ngClass]="{ 'active' : filter.includes('drink')}">
     <app-drink></app-drink>
   </div>
 
-  <div class="item" (click)="toggleActivity('coffee')" [ngClass]="{ 'active' : activities.coffee }">
+  <div class="item" (click)="setFilter('coffee')" [ngClass]="{ 'active' : filter.includes('coffee') }">
     <app-coffee></app-coffee>
   </div>
 
-  <div class="item" (click)="toggleActivity('game')" [ngClass]="{ 'active' : activities.game }">
+  <div class="item" (click)="setFilter('game')" [ngClass]="{ 'active' : filter.includes('game')}">
     <app-game></app-game>
   </div>
 
