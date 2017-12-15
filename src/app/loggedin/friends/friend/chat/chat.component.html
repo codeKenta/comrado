@@ -3,38 +3,40 @@
 
 <div class="row" *ngFor="let message of conversation">
 
-  <p class="date">{{message.date}}</p>
+  <p class="sent">
+    <span class="sender" *ngIf="message.sender == currentUser.id; else friendIsSender">{{ currentUser.username }} </span><br>
 
-  <div class="flex friend-msg">
+    <ng-template #friendIsSender>
+      <span class="sender">{{ friend.username }} </span>
+    </ng-template>
+    {{message.sent | date: 'EEEE d MMMM H:mm' }}</p>
+
+  <div class="flex" [ngClass]="{'me-msg': message.sender == currentUser.id, 'friend-msg': message.sender == friend._id}">
 
       <div class="flex vert-center img-wrapper">
-        <img src="../../../assets/images/profiles/example/wyatt.jpg" alt="">
+        <img src="../../../assets/{{currentUser.imagepath}}" alt="{{currentUser.username}}"
+        *ngIf="message.sender == currentUser.id; else friendImage">
+
+        <ng-template #friendImage>
+          <img src="../../../assets/{{friend.imagepath}}" alt="{{friend.username}}">
+        </ng-template>
+
       </div>
 
+
+
+
       <div class="flex vert-center message-wrapper">
-        <p class="message">{{message.message}}</p>
+
+        <p class="message">
+          {{message.message}}
+        </p>
       </div>
 
   </div>
+
 </div>
-<!-- end -->
 
-<!-- <div class="row">
-
-  <p class="date">2017-12-09</p>
-
-  <div class="flex me-msg">
-
-      <div class="flex vert-center img-wrapper">
-        <img src="../../../assets/images/profiles/example/knetos.jpg" alt="">
-      </div>
-
-      <div class="flex vert-center message-wrapper">
-        <p class="message">Javist kan vi det? Hur var och när ska vi ses? Köpa en balja i en ralja? Kalla kalla kalla.</p>
-      </div>
-
-  </div>
-</div>-->
 
 
 <form class="message-panel">

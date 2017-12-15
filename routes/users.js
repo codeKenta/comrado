@@ -50,6 +50,7 @@ router.post('/authenticate', (req, res, next) => {
           user: {
             id: user._id,
             username: user.username,
+            imagepath: user.imagepath,
             friendRequests: user.friendRequests,
             friends: user.friends,
             filter: user.filter

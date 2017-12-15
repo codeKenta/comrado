@@ -19,7 +19,9 @@ router.post('/conversation', (req, res, next) => {
   Chat.find( { $or: [
       { sender : user2, reciever: user1 },
       {sender : user1, reciever: user2 }
-      ]} ).select('-__v')
+    ]} )
+      .select('-__v')
+      .sort({sent: 'desc'})
       .exec(function (err, conversation) {
         if (err) return next(err);
         res.json(conversation);
