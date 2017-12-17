@@ -1,0 +1,25 @@
+.user{
+  padding: 20px;
+  padding-bottom: 40px;
+}
+
+.form-content {
+  padding: 15px;
+  width: 100%;
+  box-sizing: border-box;
+
+  label {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+  }
+  input {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 97%;
+  }
+
+  .button {
+    margin-top: 0;
+  }
+}

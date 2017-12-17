@@ -38,6 +38,12 @@ export class FriendsService {
       .map(res => res.json());
   }
 
+  // Gets a list of all users except of the current user
+  getAllUsernames() {
+    return this.http.get('users/allusernames')
+      .map(res => res.json());
+  }
+
   // Gets a list of users that matches an array of user ids
   getUsersByIds(userIds) {
     return this.http.post('users/ids', userIds)

@@ -25,7 +25,7 @@ export class FriendsComponent implements OnInit {
 
     // get data for current logged in user
     this.currentUser = this.authService.getUser();
-    
+
     // Get details about friends if there is any
     if(this.currentUser.friends.length !== 0) {
       this.getUsersByIds(this.currentUser.friends, 'friends');
@@ -60,8 +60,6 @@ export class FriendsComponent implements OnInit {
    }
 
   ngOnInit() {
-
-    console.log("FRIENDS COMPONENT", this.currentUser);
 
   }
 

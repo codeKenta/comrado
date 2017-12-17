@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ValidateService } from '../../services/validate.service';
 import { AuthService } from '../../services/auth.service';
+import { FriendsService } from '../../services/friends.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router } from '@angular/router';
 
@@ -12,16 +13,23 @@ import { Router } from '@angular/router';
 export class SignInComponent implements OnInit {
   username: String;
   password: String;
+  usernames: any;
 
   constructor(
     private validateService: ValidateService,
     private authService: AuthService,
+    private friendsService: FriendsService,
     private flashMessages: FlashMessagesService,
     private router: Router
-  ) { }
+  ) {
+
+  }
+
+
 
   ngOnInit() {
   }
+
 
   onSignInSubmit(){
 
@@ -70,7 +78,7 @@ export class SignInComponent implements OnInit {
           } else {
             // If the registration was not successful
             this.resetFormFields();
-            this.flashMessages.show('Something went wrong. Please try again.', {cssClass: 'alert-error', timeout: 5000});
+            this.flashMessages.show('Wrong password', {cssClass: 'alert-error', timeout: 5000});
             this.router.navigate(['/']);
           }
 

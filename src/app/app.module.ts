@@ -27,10 +27,14 @@ import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { FriendsService } from './services/friends.service';
 import { ChatService } from './services/chat.service';
+import { AccountService } from './services/account.service';
+
 import { AuthGuard } from './guards/auth.guard';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 
+
 import { FilterPipe } from './pipes/filter.pipe';
+import { AccountComponent } from './loggedin/account/account.component';
 
 const appRoutes: Routes =
 [
@@ -54,6 +58,11 @@ const appRoutes: Routes =
     path: 'friend/:username',
     component: FriendComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'account',
+    component: AccountComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
@@ -74,7 +83,8 @@ const appRoutes: Routes =
     AddFriendsComponent,
     FriendComponent,
     ChatComponent,
-    FilterPipe
+    FilterPipe,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +99,8 @@ const appRoutes: Routes =
     AuthService,
     AuthGuard,
     FriendsService,
-    ChatService
+    ChatService,
+    AccountService
   ],
   bootstrap: [AppComponent]
 })

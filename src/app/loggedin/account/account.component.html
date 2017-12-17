@@ -1,0 +1,29 @@
+
+<div class="container account-page">
+
+  <div class="user">
+    <p class="username">{{user.username}}</p>
+    <img src="../../../assets/{{user.imagepath}}" alt="{{user.username}}">
+  </div>
+
+  <h3 class="section-title">Change profile picture</h3>
+  <div><p>hello</p></div>
+  <h3 class="section-title">Change password</h3>
+
+  <div class="form-content">
+
+
+      <div id="group2" class="group">
+        <label for="oldPassword">Old Password</label>
+        <input id="oldPassword" class="input border" type="password" name="oldPassword" [(ngModel)]="oldPassword">
+      </div>
+      <div id="group2" class="group">
+        <label for="newPassword"> New Password</label>
+        <input id="newPassword" class="input border" type="password" name="newPassword" [(ngModel)]="newPassword">
+      </div>
+
+    <button class="button primary" role="button" (click)="updatePassword()"><span class="text">Change</span></button>
+    <flash-messages></flash-messages>
+  </div>
+
+</div>

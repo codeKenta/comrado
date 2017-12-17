@@ -4,6 +4,7 @@ var express   = require('express'),
     passport  = require('passport'),
     jwt       = require('jsonwebtoken'),
     Queries   = require('./queries'),
+    bcrypt    = require('bcryptjs'),
     User      = require('../models/user');
 
 
@@ -28,6 +29,7 @@ router.post('/register', (req, res, next) => {
 });
 
 router.post('/authenticate', (req, res, next) => {
+
   var username = req.body.username.toLowerCase();
   var password = req.body.password;
 
@@ -69,6 +71,43 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res,
   res.json({user: req.user});
 });
 
+// Updates the users password
+router.post('/updatepassword', (req, res, next) => {
+
+  let userId = mongoose.Types.ObjectId(req.body.userId);
+  let oldPassword = req.body.oldPassword;
+  let newPassword = req.body.newPassword;
+
+  User.findById(userId, (err, user) => {
+    if (err) throw err;
+
+    // Store the user result in a variable for making
+    // it easier to save the updated data to database
+    // by using mongoose .save()-method
+    let updatingUser = user;
+
+    // Checks if the old password was correctly typed
+    User.comparePassword(oldPassword, user.password, (err, isMatch) => {
+      if (err) throw err;
+      if(isMatch) {
+
+        // Hashes the new password and saves it in database
+        bcrypt.hash(newPassword, 10, function(err, hash) {
+          updatingUser.password = hash;
+          updatingUser.save((err)=>{
+            if (err) throw err;
+            return res.json({success: true, msg: 'Password successfully updated'});
+          });
+        });
+
+      } else {
+        return res.json({success: false, msg: 'Wrong password'})
+      }
+
+    });
+  });
+});
+
 
 // Get all users except of the one who is logged in
 router.get('/', (req, res, next) => {
@@ -76,6 +115,18 @@ router.get('/', (req, res, next) => {
   var currentUserId = mongoose.Types.ObjectId(req.query.currentUserId);
 
   User.find( { _id: { $nin: currentUserId } } ).select('-password -__v')
+      .exec(function (err, users) {
+        if (err) return next(err);
+        res.json(users);
+    });
+
+});
+
+// Get all users except of the one who is logged in
+router.get('/allusernames', (req, res, next) => {
+
+
+  User.find({}).select('username -_id')
       .exec(function (err, users) {
         if (err) return next(err);
         res.json(users);

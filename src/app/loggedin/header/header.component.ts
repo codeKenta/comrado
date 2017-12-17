@@ -11,19 +11,13 @@ declare var $:any;
 })
 
 export class HeaderComponent implements OnInit {
-  user: Object = {
-    username: '',
-    imagepath: '',
-    friendRequests: [],
-    friends: []
-  }
+  user: any;
 
   constructor(
     private authService: AuthService,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {
 
-  ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
       this.user = profile.user;
     },
@@ -32,8 +26,12 @@ export class HeaderComponent implements OnInit {
       return false;
     });
 
+   }
 
-    $(".link").click( function(){
+  ngOnInit() {
+
+
+    $(".link, #accountLink").click( function(){
       $("#extended-account-menu").slideUp();
     });
 
