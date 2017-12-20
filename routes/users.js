@@ -1,13 +1,43 @@
-var express   = require('express'),
-    router    = express.Router(),
-    mongoose  = require('mongoose'),
-    passport  = require('passport'),
-    jwt       = require('jsonwebtoken'),
-    Queries   = require('./queries'),
-    bcrypt    = require('bcryptjs'),
-    User      = require('../models/user');
+var express      = require('express'),
+    router       = express.Router(),
+    mongoose     = require('mongoose'),
+    passport     = require('passport'),
+    jwt          = require('jsonwebtoken'),
+    Queries      = require('./queries'),
+    bcrypt       = require('bcryptjs'),
+    cloudinary   = require('cloudinary'),
+    fs           = require('fs'),
+    // busboy = require('connect-busboy'),
+    multer       = require('multer'),
+    upload       = multer({ dest: 'fileupload/' }),
+
+    path         = require('path'),
+    async        = require('async'),
+    cmd          = require('node-cmd'),
+
+    User         = require('../models/user');
 
 
+
+// Cloadinary
+cloudinary.config({
+  cloud_name: 'knetos',
+  api_key: '618784128124614',
+  api_secret: 'aTNZ78KjLa0dnv1rCJq7bSvudUM'
+});
+
+router.post('/upload', upload.single('file'), (req, res, next) => {
+
+  cloudinary.uploader.upload(req.file.path, function(result) {
+    console.log(result.url);
+    res.json({success: true, msg: "Success"});
+  });
+
+
+});
+
+
+// Register new user
 router.post('/register', (req, res, next) => {
   let randomImage = Math.floor(Math.random() * 10) + 1;
   let newUser = new User({
@@ -261,7 +291,7 @@ router.put('/request/deny', (req, res, next) => {
   });
 
 // End friendship between two users
-router.put('/endfriendship', (req, res, next) => {
+router.post('/endfriendship', (req, res, next) => {
   var currentUserId = mongoose.Types.ObjectId(req.body.currentUserId);
   var friendId = mongoose.Types.ObjectId(req.body.friendId);
   let users = [];

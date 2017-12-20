@@ -2,18 +2,33 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { AccountService } from '../../services/account.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { FileUploader } from 'ng2-file-upload';
 
+declare var $:any;
+const URL = 'users/upload';
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss']
 })
+
+
 export class AccountComponent implements OnInit {
 
-user: any;
-oldPassword: string;
-newPassword: string;
+  user: any;
+  oldPassword: string;
+  newPassword: string;
+
+  public uploader : FileUploader = new FileUploader(
+    { url: URL
+    });
+  public hasBaseDropZoneOver : boolean = false;
+
+  public fileOverBase(e:any):void {
+    console.log(this.uploader);
+     this.hasBaseDropZoneOver = e;
+   }
 
   constructor(
     private authService: AuthService,
@@ -35,4 +50,5 @@ newPassword: string;
       console.log(err);
     });
   }
+
 }

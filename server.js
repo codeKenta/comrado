@@ -12,8 +12,11 @@ var   express       = require('express'),
       app           = express(),
       server        = http.createServer(app),
       passport      = require('passport'),
+      cloudinary    = require('cloudinary'),
+      multer = require('multer'),
+      multerupload = multer({ dest: 'tmp/' }),
 
-      usersRoute    = require('./routes/users');
+      usersRoute    = require('./routes/users'),
       messageRoute  = require('./routes/message');
 
 // Set Port
@@ -32,9 +35,18 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error !! !! !! =====:'));
 
 
+
+
+
 // Body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 // Angular DIST output folder
 app.use(express.static(path.join(__dirname, 'dist')));

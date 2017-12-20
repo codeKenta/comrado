@@ -7,11 +7,29 @@
   </div>
 
   <h3 class="section-title">Change profile picture</h3>
-  <div><p>hello</p></div>
+  <div class="content-wrapper">
+    <div ng2FileDrop
+                 [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                 (fileOver)="fileOverBase($event)"
+                 [uploader]="uploader"
+                 class="well my-drop-zone">
+                Base drop zone
+    </div>
+    <p *ngFor="let item of uploader.queue">
+    {{ item?.file?.name }}</p>
+
+    <button type="button" class="btn btn-success btn-s"
+                        (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                    <span class="glyphicon glyphicon-upload"></span> Upload all
+    </button>
+
+  </div>
+
+
+
   <h3 class="section-title">Change password</h3>
 
   <div class="form-content">
-
 
       <div id="group2" class="group">
         <label for="oldPassword">Old Password</label>
@@ -22,7 +40,7 @@
         <input id="newPassword" class="input border" type="password" name="newPassword" [(ngModel)]="newPassword">
       </div>
 
-    <button class="button primary" role="button" (click)="updatePassword()"><span class="text">Change</span></button>
+    <button class="button primary" (click)="updatePassword()"><span class="text">Change</span></button>
     <flash-messages></flash-messages>
   </div>
 

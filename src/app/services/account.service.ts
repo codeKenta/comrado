@@ -7,8 +7,19 @@ export class AccountService {
 
   constructor(private http:Http) { }
 
+  // https://nehalist.io/uploading-files-in-angular2/
+
+  uploadImage(userId, file){
+    let inputData = {
+      userId: userId,
+      file: file
+    }
+
+    return this.http.post('users/uploadimage', inputData)
+      .map(res => res.json());
+  }
+
   updatePassword(userId, oldPassword, newPassword){
-    console.log("USER ID in ACCOUNT SERVICE", userId);
 
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');

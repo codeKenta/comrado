@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
@@ -92,7 +93,8 @@ const appRoutes: Routes =
     AngularFontAwesomeModule,
     FormsModule,
     HttpModule,
-    FlashMessagesModule.forRoot()
+    FlashMessagesModule.forRoot(),
+    FileUploadModule
   ],
   providers: [
     ValidateService,
