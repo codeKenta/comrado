@@ -26,10 +26,19 @@ cloudinary.config({
   api_secret: 'aTNZ78KjLa0dnv1rCJq7bSvudUM'
 });
 
+// Uploads file with multer and cloudinary.
+// The 'file'-parameter-name is set by angular module ng2-file-upload
 router.post('/upload', upload.single('file'), (req, res, next) => {
 
   cloudinary.uploader.upload(req.file.path, function(result) {
     console.log(result.url);
+
+    // Remove from uploaddirectory
+
+    // Add path to Database
+
+    // Send response to client
+
     res.json({success: true, msg: "Success"});
   });
 
