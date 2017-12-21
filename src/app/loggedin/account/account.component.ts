@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { AccountService } from '../../services/account.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { FileUploader } from 'ng2-file-upload';
+import { FileUploader, FileItem, ParsedResponseHeaders } from 'ng2-file-upload';
 
 declare var $:any;
-const URL = 'users/upload';
+
 
 @Component({
   selector: 'app-account',
@@ -15,14 +15,15 @@ const URL = 'users/upload';
 
 
 export class AccountComponent implements OnInit {
-
+  sendFileUrl: string;
   user: any;
   oldPassword: string;
   newPassword: string;
 
-  public uploader : FileUploader = new FileUploader(
-    { url: URL
-    });
+  // public uploader : FileUploader = new FileUploader(
+  //   { url: this.sendFileUrl
+  //   });
+  public uploader : FileUploader;
   public hasBaseDropZoneOver : boolean = false;
 
   public fileOverBase(e:any):void {
@@ -39,7 +40,28 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.sendFileUrl = 'users/upload/' + this.user.id + '/' + this.user.username;
+
+    this.uploader = new FileUploader(
+      { url: this.sendFileUrl,
+        headers: [{name:'Accept', value:'application/json'}],
+        autoUpload: true
+      });
+      this.uploader.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
+      this.uploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
   }
+
+    onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+        let data = JSON.parse(response); //success server response
+        console.log(data);
+    }
+
+    onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+        let error = JSON.parse(response); //error server response
+        console.log(error);
+    }
+
+
 
   updatePassword(){
     this.AccountService.updatePassword(this.user.id, this.oldPassword, this.newPassword).subscribe(result => {

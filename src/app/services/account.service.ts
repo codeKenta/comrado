@@ -9,15 +9,16 @@ export class AccountService {
 
   // https://nehalist.io/uploading-files-in-angular2/
 
-  uploadImage(userId, file){
-    let inputData = {
-      userId: userId,
-      file: file
-    }
-
-    return this.http.post('users/uploadimage', inputData)
-      .map(res => res.json());
-  }
+  // uploadImage(userId, username, file){
+  //   let inputData = {
+  //     userId: userId,
+  //     username: username
+  //     file: file
+  //   }
+  //
+  //   return this.http.post('users/uploadimage', inputData)
+  //     .map(res => res.json());
+  // }
 
   updatePassword(userId, oldPassword, newPassword){
 

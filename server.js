@@ -13,8 +13,8 @@ var   express       = require('express'),
       server        = http.createServer(app),
       passport      = require('passport'),
       cloudinary    = require('cloudinary'),
-      multer = require('multer'),
-      multerupload = multer({ dest: 'tmp/' }),
+      // multer        = require('multer'),
+      // multerupload  = multer({ dest: 'tmp/' }),
 
       usersRoute    = require('./routes/users'),
       messageRoute  = require('./routes/message');
@@ -33,8 +33,6 @@ mongoose.Promise = global.Promise
 mongoose.connect(uri);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error !! !! !! =====:'));
-
-
 
 
 

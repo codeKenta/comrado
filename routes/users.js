@@ -7,7 +7,6 @@ var express      = require('express'),
     bcrypt       = require('bcryptjs'),
     cloudinary   = require('cloudinary'),
     fs           = require('fs'),
-    // busboy = require('connect-busboy'),
     multer       = require('multer'),
     upload       = multer({ dest: 'fileupload/' }),
 
@@ -28,18 +27,32 @@ cloudinary.config({
 
 // Uploads file with multer and cloudinary.
 // The 'file'-parameter-name is set by angular module ng2-file-upload
-router.post('/upload', upload.single('file'), (req, res, next) => {
+router.post('/upload/:userid/:username', upload.single('file'), (req, res, next) => {
+
+  userId = mongoose.Types.ObjectId(req.params.userid);
 
   cloudinary.uploader.upload(req.file.path, function(result) {
-    console.log(result.url);
+    console.log(result);
 
-    // Remove from uploaddirectory
+    // Update imagepath in Database
+    User.findById(userId, function (err, user) {
+      if (err) return handleError(err);
 
-    // Add path to Database
+      user.set({ imagepath: result.url });
 
-    // Send response to client
+      user.save(function (err, updatedUser) {
+        if (err) return handleError(err);
 
-    res.json({success: true, msg: "Success"});
+        // Send response to client
+        res.json({success: true, imagepath: result.url});
+        });
+      });
+
+  }, {
+    public_id: 'comrado/' + req.params.username,
+    width: 700,
+    quality: 99,
+    crop: 'scale'
   });
 
 
