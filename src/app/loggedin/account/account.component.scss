@@ -1,4 +1,7 @@
-.user{
+@import '~sass/variables';
+@import '~sass/mixins';
+
+.user {
   padding: 20px;
   padding-bottom: 40px;
 }
@@ -13,23 +16,134 @@
     margin: 0 auto;
     text-align: center;
   }
+
   input {
     margin-top: 10px;
     margin-bottom: 20px;
     width: 97%;
   }
 
+
   .button {
     margin-top: 0;
   }
+
 }
 
 .content-wrapper {
   padding: 15px;
 }
-.my-drop-zone {
-  border: dotted 3px lightgray;
-  height: 50px;
+.drop-zone {
+  border: dotted 3px lightgrey;
+  margin: 20px 0;
+
+  .drop-text {
+    box-sizing: border-box;
+    color: lightgrey;
+    padding: 20px;
+    text-align: center;
+  }
 
 }
-.nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+.nv-file-over {
+  border: dotted 3px $complementColor;
+  .drop-text {
+    color: $complementColor;
+  }
+}
+
+.loading-container {
+  display: flex;
+  align-items: center;
+}
+.spinner-container {
+  display: inline;
+  width: 50px;
+  height: 50px;
+}
+
+
+
+// .span, .span_large {
+//     float: left;
+//     width: 100px;
+//     background-color: rgba(0,0,0, 0.02);
+//     height: 100px;
+//     vertical-align: middle;
+//     border-radius: 1px;
+//     margin-right: 100px;
+// }
+// .span:last-child {
+//     margin-right: 0px;
+// }
+
+.uploadButton {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  .loader-wrapper {
+    margin-left: 30px;
+  }
+}
+
+.typing_loader{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    -webkit-animation: typing 1s linear infinite alternate;
+       -moz-animation: Typing 1s linear infinite alternate;
+       -ms-animation: Typing 1s linear infinite alternate;
+            animation: typing 1s linear infinite alternate;
+    position: relative;
+    left: -12px;
+}
+@-webkit-keyframes typing{
+    0%{
+        background-color: rgba(255,255,255, 1);
+        box-shadow: 12px 0px 0px 0px rgba(255,255,255,0.2),
+                    24px 0px 0px 0px rgba(255,255,255,0.2);
+      }
+    25%{
+        background-color: rgba(255,255,255, 0.4);
+        box-shadow: 12px 0px 0px 0px rgba(255,255,255,2),
+                    24px 0px 0px 0px rgba(255,255,255,0.2);
+    }
+    75%{ background-color: rgba(255,255,255, 0.4);
+        box-shadow: 12px 0px 0px 0px rgba(255,255,255,0.2),
+                    24px 0px 0px 0px rgba(255,255,255,1);
+      }
+}
+
+@-moz-keyframes typing{
+   0%{
+        background-color: rgba(255,255,255, 1);
+        box-shadow: 12px 0px 0px 0px rgba(255,255,255,0.2),
+                    24px 0px 0px 0px rgba(255,255,255,0.2);
+      }
+    25%{
+        background-color: rgba(255,255,255, 0.4);
+        box-shadow: 12px 0px 0px 0px rgba(255,255,255,2),
+                    24px 0px 0px 0px rgba(255,255,255,0.2);
+    }
+    75%{ background-color: rgba(255,255,255, 0.4);
+        box-shadow: 12px 0px 0px 0px rgba(255,255,255,0.2),
+                    24px 0px 0px 0px rgba(255,255,255,1);
+      }
+}
+
+@keyframes typing{
+   0%{
+        background-color: rgba(255,255,255, 1);
+        box-shadow: 12px 0px 0px 0px rgba(255,255,255,0.2),
+                    24px 0px 0px 0px rgba(255,255,255,0.2);
+      }
+    25%{
+        background-color: rgba(255,255,255, 0.4);
+        box-shadow: 12px 0px 0px 0px rgba(255,255,255,2),
+                    24px 0px 0px 0px rgba(255,255,255,0.2);
+    }
+    75%{ background-color: rgba(255,255,255, 0.4);
+        box-shadow: 12px 0px 0px 0px rgba(255,255,255,0.2),
+                    24px 0px 0px 0px rgba(255,255,255,1);
+      }
+}

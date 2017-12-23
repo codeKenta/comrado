@@ -24,7 +24,7 @@
 
   <div class="row flex just-space-between" *ngFor="let user of users | filterByUsername:search">
     <div class="flex group">
-      <img src="../../../assets/{{user.imagepath}}" alt="">
+      <img src="{{user.imagepath}}" alt="">
       <div class="flex vert-center">
         <span class="username">{{user.username}}</span>
       </div>

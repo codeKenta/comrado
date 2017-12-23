@@ -32,7 +32,6 @@ router.post('/upload/:userid/:username', upload.single('file'), (req, res, next)
   userId = mongoose.Types.ObjectId(req.params.userid);
 
   cloudinary.uploader.upload(req.file.path, function(result) {
-    console.log(result);
 
     // Update imagepath in Database
     User.findById(userId, function (err, user) {
@@ -43,16 +42,20 @@ router.post('/upload/:userid/:username', upload.single('file'), (req, res, next)
       user.save(function (err, updatedUser) {
         if (err) return handleError(err);
 
+        console.log(updatedUser);
         // Send response to client
         res.json({success: true, imagepath: result.url});
         });
       });
 
   }, {
-    public_id: 'comrado/' + req.params.username,
-    width: 700,
-    quality: 99,
-    crop: 'scale'
+    public_id: req.params.username,
+    width: 400,
+    height: 400,
+    gravity: "face",
+    radius: "max",
+    crop: "thumb",
+    quality: 99
   });
 
 

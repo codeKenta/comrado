@@ -14,17 +14,14 @@
   <div class="flex" [ngClass]="{'me-msg': message.sender == currentUser.id, 'friend-msg': message.sender == friend._id}">
 
       <div class="flex vert-center img-wrapper">
-        <img src="../../../assets/{{currentUser.imagepath}}" alt="{{currentUser.username}}"
+        <img src="{{currentUser.imagepath}}" alt="{{currentUser.username}}"
         *ngIf="message.sender == currentUser.id; else friendImage">
 
         <ng-template #friendImage>
-          <img src="../../../assets/{{friend.imagepath}}" alt="{{friend.username}}">
+          <img src="{{friend.imagepath}}" alt="{{friend.username}}">
         </ng-template>
 
       </div>
-
-
-
 
       <div class="flex vert-center message-wrapper">
 

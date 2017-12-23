@@ -1,9 +1,12 @@
 <div class="container list feed">
 
   <!-- user -->
-  <div class="row flex just-space-between" *ngFor="let friend of matchedFriends">
+  <div class="row flex just-space-between"
+  *ngFor="let friend of matchedFriends"
+  routerLink="/friend/{{friend.username}}"
+  >
     <div class="flex group">
-      <img src="../../../assets/{{friend.imagepath}}" alt="{{friend.username}}">
+      <img src="{{friend.imagepath}}" alt="{{friend.username}}">
       <div class="flex vert-center">
         <span class="username">{{friend.username}}</span>
       </div>

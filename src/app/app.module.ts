@@ -5,6 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FileUploadModule } from 'ng2-file-upload';
 
+import { Cloudinary as CloudinaryCore } from 'cloudinary-core';
+import { CloudinaryConfiguration, CloudinaryModule } from '@cloudinary/angular-5.x';
+import cloudinaryConfiguration from './config';
+import { Cloudinary } from '@cloudinary/angular-5.x/src/cloudinary.service';
+
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { AppComponent }     from './app.component';
@@ -36,6 +41,11 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 
 import { FilterPipe } from './pipes/filter.pipe';
 import { AccountComponent } from './loggedin/account/account.component';
+
+export const cloudinary = {
+  Cloudinary: CloudinaryCore
+};
+export const config: CloudinaryConfiguration = cloudinaryConfiguration;
 
 const appRoutes: Routes =
 [
@@ -94,7 +104,8 @@ const appRoutes: Routes =
     FormsModule,
     HttpModule,
     FlashMessagesModule.forRoot(),
-    FileUploadModule
+    FileUploadModule,
+    CloudinaryModule.forRoot(cloudinary, config)
   ],
   providers: [
     ValidateService,

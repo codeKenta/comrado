@@ -44,16 +44,32 @@ export class AccountComponent implements OnInit {
 
     this.uploader = new FileUploader(
       { url: this.sendFileUrl,
-        headers: [{name:'Accept', value:'application/json'}],
-        autoUpload: true
+        headers: [{name:'Accept', value:'application/json'}]
       });
+
+      // Only take one file
+      this.uploader.onAfterAddingFile = f => {
+       if (this.uploader.queue.length > 1) {
+           this.uploader.removeFromQueue(this.uploader.queue[0]);
+        }
+      };
+
       this.uploader.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
       this.uploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
   }
 
     onSuccessItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
         let data = JSON.parse(response); //success server response
-        console.log(data);
+
+        // Updates the user object of the component with the new imagepath
+        this.user.imagepath = data.imagepath;
+
+        // Updates the userObject in authService so other components can use
+        // the updated user
+        this.authService.setUser(this.user);
+
+        // resets the queue so filename is not displayed
+        this.uploader.removeFromQueue(this.uploader.queue[0]);
     }
 
     onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
