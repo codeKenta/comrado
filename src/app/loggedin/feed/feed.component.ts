@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { FriendsService } from '../../services/friends.service';
@@ -16,12 +16,17 @@ export class FeedComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private friendsService: FriendsService
+    private friendsService: FriendsService,
   ) {
 
     this.currentUserId = this.authService.getUser().id;
     this.filter = this.authService.getUser().filter;
     this.matchFriends();
+
+    // Listening for changes in the user object in the service
+    this.authService.userUpdated.subscribe((user) => {
+        this.filter = this.authService.getUser().filter;
+      });
 
    }
 

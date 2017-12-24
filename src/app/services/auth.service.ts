@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { tokenNotExpired } from 'angular2-jwt';
@@ -10,6 +10,9 @@ export class AuthService {
   user: any;
 
   constructor(private http:Http) { }
+
+  // EventEmitter for detecting changes in the user object;
+  userUpdated:EventEmitter<any> = new EventEmitter();
 
   registerUser(user){
     let headers = new Headers();
@@ -49,6 +52,8 @@ export class AuthService {
    setUser(user){
      this.user = user;
      localStorage.setItem('user', JSON.stringify(user));
+     // EventEmitter for communicate changes in the user object to components;
+     this.userUpdated.emit(this.user);
    }
 
    loadToken(){

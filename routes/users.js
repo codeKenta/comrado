@@ -50,12 +50,12 @@ router.post('/upload/:userid/:username', upload.single('file'), (req, res, next)
 
   }, {
     public_id: req.params.username,
-    width: 400,
-    height: 400,
+    width: 200,
+    height: 200,
     gravity: "face",
     radius: "max",
     crop: "thumb",
-    quality: 99
+    quality: 'auto:best'
   });
 
 
@@ -123,8 +123,16 @@ router.post('/authenticate', (req, res, next) => {
 
 // Protected route, gets user detail of logged in user
 router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
-  res.json({user: req.user});
+  let user = {
+    username: req.user.username,
+    filter: req.user.filter,
+    friendRequests: req.user.friendRequests,
+    friends: req.user.friends,
+    imagepath: req.user.imagepath
+  }
+  res.json({user: user});
 });
+
 
 // Updates the users password
 router.post('/updatepassword', (req, res, next) => {

@@ -20,9 +20,6 @@ export class AccountComponent implements OnInit {
   oldPassword: string;
   newPassword: string;
 
-  // public uploader : FileUploader = new FileUploader(
-  //   { url: this.sendFileUrl
-  //   });
   public uploader : FileUploader;
   public hasBaseDropZoneOver : boolean = false;
 

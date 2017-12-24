@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
     private router: Router
   ) {
 
+    // authenticate and gets the user data
     this.authService.getProfile().subscribe(profile => {
       this.user = profile.user;
     },
@@ -26,11 +27,20 @@ export class HeaderComponent implements OnInit {
       return false;
     });
 
+    // Listening for changes in the user object in the service
+    this.authService.userUpdated.subscribe((user) => {
+        this.user = this.authService.getUser();
+        console.log("user loaded");
+      }
+    );
+
+
+
    }
 
   ngOnInit() {
 
-
+    console.log("this USer", this.user);
     $(".link, #accountLink").click( function(){
       $("#extended-account-menu").slideUp();
     });
