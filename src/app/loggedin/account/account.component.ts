@@ -30,8 +30,8 @@ export class AccountComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private AccountService: AccountService,
-    private flashMessages: FlashMessagesService,
+    private accountService: AccountService,
+    private flashMessages: FlashMessagesService
   ) {
     this.user = this.authService.getUser();
   }
@@ -77,12 +77,20 @@ export class AccountComponent implements OnInit {
 
 
   updatePassword(){
-    this.AccountService.updatePassword(this.user.id, this.oldPassword, this.newPassword).subscribe(result => {
+    this.accountService.updatePassword(this.user.id, this.oldPassword, this.newPassword).subscribe(result => {
       this.oldPassword = "";
       this.newPassword = "";
       this.flashMessages.show('Password successfully uppdated', {cssClass: 'alert-success', timeout: 5000});
     }, err =>{
       console.log(err);
+    });
+  }
+
+  removeAccount(){
+    this.accountService.removeAccount(this.user.id).subscribe(result => {
+      if(result.success) {
+        this.authService.signOut();
+      }
     });
   }
 

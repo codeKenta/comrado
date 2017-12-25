@@ -5,7 +5,9 @@
     <h2 class="title">Friend Requests</h2>
 
     <div class="request" *ngFor="let request of requests">
-      <img src="{{request.imagepath}}" alt="{{request.username}}">
+      <cl-image public-id="{{request.username}}" >
+        <cl-transformation width="350" crop="scale" quality="100"></cl-transformation>
+      </cl-image>
       <p class="username">{{request.username}}</p>
       <div class="button-wrapper">
         <div class="button primary" (click)="acceptRequest(request._id)">Accept</div>
@@ -19,7 +21,9 @@
     *ngFor="let friend of friends | filterByUsername:search"
     routerLink="/friend/{{friend.username}}">
     <div class="flex group">
-      <img src="{{friend.imagepath}}" alt="{{friend.username}}">
+      <cl-image public-id="{{friend.username}}" >
+        <cl-transformation width="130" crop="scale" quality="100"></cl-transformation>
+      </cl-image>
       <div class="flex vert-center">
         <span class="username">{{friend.username}}</span>
       </div>

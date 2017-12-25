@@ -17,7 +17,6 @@ var express      = require('express'),
     User         = require('../models/user');
 
 
-
 // Cloadinary
 cloudinary.config({
   cloud_name: 'knetos',
@@ -25,62 +24,59 @@ cloudinary.config({
   api_secret: 'aTNZ78KjLa0dnv1rCJq7bSvudUM'
 });
 
-// Uploads file with multer and cloudinary.
-// The 'file'-parameter-name is set by angular module ng2-file-upload
-router.post('/upload/:userid/:username', upload.single('file'), (req, res, next) => {
+// Set the folder for default profile pictures
+const defaultFolder = "./fileupload/defaultprofiles/";
+// Declare a variable for holding the all filenames for the default images
+var defaultImagesArray = [];
+// Reads the default folder and pushes in all filenames in the array.
+// Then a new user is created a random image from the array is choosen.
+fs.readdir(defaultFolder, (err, files) => {
+  files.forEach(file => {
+    defaultImagesArray.push(file);
+  });
+});
 
-  userId = mongoose.Types.ObjectId(req.params.userid);
 
-  cloudinary.uploader.upload(req.file.path, function(result) {
+// Register new user
+router.post('/register', (req, res, next) => {
 
-    // Update imagepath in Database
-    User.findById(userId, function (err, user) {
-      if (err) return handleError(err);
+  // Sets the random number for picking a random default image
+  let randomNumber = Math.floor(Math.random() * defaultImagesArray.length) + 1;
+  let randomImage = defaultFolder + defaultImagesArray[randomNumber];
 
-      user.set({ imagepath: result.url });
+  // Uploads the random default image to cloudinary and register new user if there was a success
+  cloudinary.uploader.upload(randomImage, function(result) {
 
-      user.save(function (err, updatedUser) {
-        if (err) return handleError(err);
+    // Make a new user object, imagepath is set from the cloudinary-result
+    let newUser = new User({
+      username: req.body.username.toLowerCase(),
+      password: req.body.password,
+      imagepath: result.url,
+      friends: [
+        '5a2c596132ea4619a103dafe'
+      ]
+    });
 
-        console.log(updatedUser);
-        // Send response to client
-        res.json({success: true, imagepath: result.url});
-        });
-      });
+    // Adds the user to database
+    User.addUser(newUser, (err, user) => {
+      if (err) {
+        res.json({success: false, msg: 'The application failed to register the user'})
+      } else {
+        res.json({success: true, msg: 'New user registered'});
+      }
+    });
 
   }, {
-    public_id: req.params.username,
-    width: 200,
-    height: 200,
+    // Settings for the cloudinary-upload
+    public_id: req.body.username.toLowerCase(),
+    width: 300,
+    height: 300,
     gravity: "face",
     radius: "max",
     crop: "thumb",
     quality: 'auto:best'
   });
 
-
-});
-
-
-// Register new user
-router.post('/register', (req, res, next) => {
-  let randomImage = Math.floor(Math.random() * 10) + 1;
-  let newUser = new User({
-    username: req.body.username.toLowerCase(),
-    password: req.body.password,
-    imagepath: 'images/profiles/example/default_' + randomImage + '.jpg',
-    friends: [
-      '5a2c596132ea4619a103dafe'
-    ]
-  });
-
-  User.addUser(newUser, (err, user) => {
-    if (err) {
-      res.json({success: false, msg: 'The application failed to register the user'})
-    } else {
-      res.json({success: true, msg: 'New user registered'});
-    }
-  });
 });
 
 router.post('/authenticate', (req, res, next) => {
@@ -134,6 +130,40 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res,
 });
 
 
+// Uploads file with multer and cloudinary.
+// The 'file'-parameter-name is set by angular module ng2-file-upload
+router.post('/upload/:userid/:username', upload.single('file'), (req, res, next) => {
+
+  userId = mongoose.Types.ObjectId(req.params.userid);
+
+  cloudinary.uploader.upload(req.file.path, function(result) {
+
+    // Update imagepath in Database
+    User.findById(userId, function (err, user) {
+      if (err) return handleError(err);
+
+      user.set({ imagepath: result.url });
+
+      user.save(function (err, updatedUser) {
+        if (err) return handleError(err);
+
+        // Send response to client
+        res.json({success: true, imagepath: result.url});
+        });
+      });
+
+  }, {
+    public_id: req.params.username,
+    width: 300,
+    height: 300,
+    gravity: "face",
+    radius: "max",
+    crop: "thumb",
+    quality: 'auto:best'
+  });
+
+});
+
 // Updates the users password
 router.post('/updatepassword', (req, res, next) => {
 
@@ -184,6 +214,31 @@ router.get('/', (req, res, next) => {
     });
 
 });
+
+// Get all users except of the one who is logged in
+router.delete('/:userId', (req, res, next) => {
+
+  var userId = mongoose.Types.ObjectId(req.params.userId);
+
+  // Removes the user from other users data, like friends and friendRequests
+  // Then removes the user form db
+  User.updateMany({}, { $pull: { friendRequests: userId } , $pull: { friends: userId } }, (err) => {
+    if (err) {
+      res.send(err);
+    } else {
+      User.findByIdAndRemove(userId, (err, todo) => {
+        if(err) {
+          res.send(err);
+        } else {
+          res.json({success: true, msg: 'User removed'});
+        }
+      });
+    }
+  });
+
+
+});
+
 
 // Get all users except of the one who is logged in
 router.get('/allusernames', (req, res, next) => {

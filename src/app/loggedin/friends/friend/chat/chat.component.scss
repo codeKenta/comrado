@@ -1,6 +1,10 @@
 @import '~sass/variables';
 @import '~sass/mixins';
 
+.chat-container {
+  padding-top: 20px;
+  padding-bottom: 50px;
+}
 .row {
   padding-bottom: 20px;
   img {
@@ -27,7 +31,7 @@
   }
 }
 
-.friend-msg {
+.friendmsg {
   flex-direction: row-reverse;
   .img-wrapper {
       margin-left: 20px;

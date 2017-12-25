@@ -1,40 +1,42 @@
-<h3 class="section-title solid">Messages</h3>
-<!-- user -->
+<div class="chat-container">
 
-<div class="row" *ngFor="let message of conversation">
+  <h3 class="section-title solid">Messages</h3>
+  <!-- user -->
 
-  <p class="sent">
-    <span class="sender" *ngIf="message.sender == currentUser.id; else friendIsSender">{{ currentUser.username }} </span><br>
+  <div class="row" *ngFor="let message of conversation">
 
-    <ng-template #friendIsSender>
-      <span class="sender">{{ friend.username }} </span>
-    </ng-template>
-    {{message.sent | date: 'EEEE d MMMM H:mm' }}</p>
+    <p class="sent">
+      <span class="sender" *ngIf="message.sender == currentUser.id; else friendIsSender">{{ currentUser.username }} </span><br>
 
-  <div class="flex" [ngClass]="{'me-msg': message.sender == currentUser.id, 'friend-msg': message.sender == friend._id}">
+      <ng-template #friendIsSender>
+        <span class="sender">{{ friend.username }}</span>
+      </ng-template>
+      {{message.sent | date: 'EEEE d MMMM H:mm' }}</p>
 
-      <div class="flex vert-center img-wrapper">
-        <img src="{{currentUser.imagepath}}" alt="{{currentUser.username}}"
-        *ngIf="message.sender == currentUser.id; else friendImage">
+    <div class="flex" [ngClass]="{'me-msg': message.sender == currentUser.id, 'friendmsg': message.sender == friend._id}">
 
-        <ng-template #friendImage>
-          <img src="{{friend.imagepath}}" alt="{{friend.username}}">
-        </ng-template>
+        <div class="flex vert-center img-wrapper">
+          <img src="{{currentUser.imagepath}}" alt="{{currentUser.username}}"
+          *ngIf="message.sender == currentUser.id; else friendImage">
 
-      </div>
+          <ng-template #friendImage>
+            <img src="{{friend.imagepath}}" alt="{{currentUser.username}}">
+          </ng-template>
 
-      <div class="flex vert-center message-wrapper">
+        </div>
 
-        <p class="message">
-          {{message.message}}
-        </p>
-      </div>
+        <div class="flex vert-center message-wrapper">
+
+          <p class="message">
+            {{message.message}}
+          </p>
+        </div>
+
+    </div>
 
   </div>
 
 </div>
-
-
 
 <form class="message-panel">
   <div class="flex vert-center">

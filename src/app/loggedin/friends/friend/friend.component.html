@@ -1,5 +1,5 @@
 
-<div class="container list friend">
+<div class="container list">
 
     <div class="top-section flex just-space-between">
       <a routerLink="/friends" class="bread-crumb">
@@ -19,8 +19,12 @@
 
     <div class="friend">
       <p class="username">{{friend.username}}</p>
-      <img src="{{friend.imagepath}}" alt="{{friend.username}}">
+      <cl-image public-id="{{friend.username}}">
+        <cl-transformation width="320" crop="scale" quality="100"></cl-transformation>
+      </cl-image>
 
     </div>
 
+
 <app-chat [friend]="friend"></app-chat>
+</div>

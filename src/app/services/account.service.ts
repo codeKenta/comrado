@@ -7,8 +7,6 @@ export class AccountService {
 
   constructor(private http:Http) { }
 
-  // https://nehalist.io/uploading-files-in-angular2/
-
   updatePassword(userId, oldPassword, newPassword){
 
     let headers = new Headers();
@@ -22,6 +20,14 @@ export class AccountService {
 
     return this.http.post('users/updatepassword', inputData, { headers: headers })
       .map(res => res.json());
+   }
+
+   removeAccount(userId){
+     let headers = new Headers();
+     headers.append('Content-Type', 'application/json');
+
+     return this.http.delete('users/' + userId, { headers: headers })
+       .map(res => res.json());
    }
 
 }

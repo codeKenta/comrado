@@ -247,7 +247,6 @@ BUTTONS
     }
     .group {
       img {
-        border-radius: 50%;
         width: 60px;
         height: 60px;
         margin-right: 20px;
@@ -311,6 +310,8 @@ BUTTONS
     img {
       display: block;
       margin: 0 auto;
+      width: 150px;
+      height: 150px;
     }
 
     .username {

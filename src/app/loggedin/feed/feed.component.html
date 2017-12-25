@@ -7,7 +7,9 @@
   routerLink="/friend/{{friend.username}}"
   >
     <div class="flex group">
-      <img src="{{friend.imagepath}}" alt="{{friend.username}}">
+      <cl-image public-id="{{friend.username}}" >
+        <cl-transformation width="120" crop="scale" quality="100"></cl-transformation>
+      </cl-image>
       <div class="flex vert-center">
         <span class="username">{{friend.username}}</span>
       </div>

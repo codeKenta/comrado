@@ -30,7 +30,6 @@ export class HeaderComponent implements OnInit {
     // Listening for changes in the user object in the service
     this.authService.userUpdated.subscribe((user) => {
         this.user = this.authService.getUser();
-        console.log("user loaded");
       }
     );
 

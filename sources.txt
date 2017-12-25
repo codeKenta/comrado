@@ -19,3 +19,6 @@ https://www.youtube.com/watch?v=6pdFXmTfkeE
 // Find all by friendlist
 // https://stackoverflow.com/questions/8303900/mongodb-mongoose-findmany-find-all-documents-with-ids-listed-in-array
 // PROMISE example https://jsfiddle.net/nurulnabi/1k2zv9cp/2/
+
+// Manuel Uploading files in angular 
+// https://nehalist.io/uploading-files-in-angular2/

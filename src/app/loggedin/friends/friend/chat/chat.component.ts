@@ -22,6 +22,12 @@ export class ChatComponent implements OnInit, OnChanges {
 
     this.currentUser = this.authService.getUser();
 
+    // Listening for changes in the user object in the service
+    this.authService.userUpdated.subscribe((user) => {
+        this.currentUser = this.authService.getUser();
+      }
+    );
+
    }
 
   ngOnInit() {
