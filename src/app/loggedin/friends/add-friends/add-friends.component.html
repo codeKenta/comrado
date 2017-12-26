@@ -24,9 +24,7 @@
 
   <div class="row flex just-space-between" *ngFor="let user of users | filterByUsername:search">
     <div class="flex group">
-      <cl-image public-id="{{user.username}}" >
-        <cl-transformation width="100" crop="scale" quality="100"></cl-transformation>
-      </cl-image>
+      <img src="{{user.imagepath}}" alt="{{user.username}}">
       <div class="flex vert-center">
         <span class="username">{{user.username}}</span>
       </div>

@@ -2,6 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { tokenNotExpired } from 'angular2-jwt';
+import { SocketService } from './socket.service';
 
 @Injectable()
 export class AuthService {
@@ -9,7 +10,10 @@ export class AuthService {
   authToken: any;
   user: any;
 
-  constructor(private http:Http) { }
+  constructor(
+    private http:Http,
+    private socketService: SocketService
+  ) { }
 
   // EventEmitter for detecting changes in the user object;
   userUpdated:EventEmitter<any> = new EventEmitter();
@@ -25,6 +29,13 @@ export class AuthService {
      let headers = new Headers();
      headers.append('Content-Type', 'application/json');
      return this.http.post('users/authenticate', user, { headers: headers })
+       .map(res => res.json());
+   }
+
+   uploudDefaultImage(username) {
+     let headers = new Headers();
+     headers.append('Content-Type', 'application/json');
+     return this.http.post('users/cloudinarydefault', username, { headers: headers })
        .map(res => res.json());
    }
 
@@ -65,6 +76,7 @@ export class AuthService {
      this.authToken = null;
      this.user = null;
      localStorage.clear();
+     this.socketService.disconnect();
    }
 
    // Check if user is signed in

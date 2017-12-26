@@ -31,6 +31,9 @@ export class ChatComponent implements OnInit, OnChanges {
    }
 
   ngOnInit() {
+    this.chatService.messages.subscribe(msg => {
+      console.log(msg);
+    })
   }
 
   ngOnChanges() {
@@ -40,9 +43,10 @@ export class ChatComponent implements OnInit, OnChanges {
   sendMessage(){
     this.chatService.sendMessage(this.currentUser.id, this.friend._id, this.message).
     subscribe(result => {
-      console.log(result);
+
       this.message = "";
       this.getConversation();
+      this.chatService.sendMessageSocket("hallleyjooo");
       return true;
     }, err => {
       console.log(err);

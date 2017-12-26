@@ -40,6 +40,8 @@ fs.readdir(defaultFolder, (err, files) => {
 // Register new user
 router.post('/register', (req, res, next) => {
 
+  console.log("Enter Register Route");
+
   // Sets the random number for picking a random default image
   let randomNumber = Math.floor(Math.random() * defaultImagesArray.length) + 1;
   let randomImage = defaultFolder + defaultImagesArray[randomNumber];
@@ -62,7 +64,16 @@ router.post('/register', (req, res, next) => {
       if (err) {
         res.json({success: false, msg: 'The application failed to register the user'})
       } else {
-        res.json({success: true, msg: 'New user registered'});
+
+        // Add the new user as friend to the app creators account
+        User.findOneAndUpdate({_id: '5a2c596132ea4619a103dafe' }, {$push: { friends: user._id } }, (err) => {
+          if (err) {
+            res.send(err);
+          } else {
+            res.json({success: true, msg: 'New user registered'});
+          }
+        });
+
       }
     });
 
@@ -74,6 +85,7 @@ router.post('/register', (req, res, next) => {
     gravity: "face",
     radius: "max",
     crop: "thumb",
+    format: 'png',
     quality: 'auto:best'
   });
 

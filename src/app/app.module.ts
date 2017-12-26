@@ -34,6 +34,7 @@ import { AuthService } from './services/auth.service';
 import { FriendsService } from './services/friends.service';
 import { ChatService } from './services/chat.service';
 import { AccountService } from './services/account.service';
+import { SocketService } from './services/socket.service';
 
 import { AuthGuard } from './guards/auth.guard';
 import { FlashMessagesModule } from 'angular2-flash-messages';
@@ -113,7 +114,8 @@ const appRoutes: Routes =
     AuthGuard,
     FriendsService,
     ChatService,
-    AccountService
+    AccountService,
+    SocketService
   ],
   bootstrap: [AppComponent]
 })

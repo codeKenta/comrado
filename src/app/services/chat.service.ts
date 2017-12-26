@@ -1,11 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams} from '@angular/http';
+import { SocketService } from './socket.service';
+import { Observable, Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ChatService {
 
-  constructor(private http:Http) { }
+  messages: Subject<any>;
+
+  constructor(
+    private http:Http,
+    private socketService: SocketService
+  ) {
+
+    this.messages = <Subject<any>>socketService
+      .connect()
+      .map((response: any): any => {
+        return response;
+      })
+  }
 
   sendMessage(sender, reciever, message){
 
@@ -26,6 +40,10 @@ export class ChatService {
     }
     return this.http.post('message/conversation', inputData)
       .map(res => res.json());
+  }
+
+  sendMessageSocket(msg) {
+    this.messages.next(msg);
   }
 
 }

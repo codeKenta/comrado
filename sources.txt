@@ -20,5 +20,9 @@ https://www.youtube.com/watch?v=6pdFXmTfkeE
 // https://stackoverflow.com/questions/8303900/mongodb-mongoose-findmany-find-all-documents-with-ids-listed-in-array
 // PROMISE example https://jsfiddle.net/nurulnabi/1k2zv9cp/2/
 
-// Manuel Uploading files in angular 
+// Manuel Uploading files in angular
 // https://nehalist.io/uploading-files-in-angular2/
+
+// Cloudinary refererar till en undersökning som kan användas som källa
+handlar om hur snabbt besökare förväntar sig att en webbsida ska ladda.
+https://cloudinary.com/documentation/image_optimization

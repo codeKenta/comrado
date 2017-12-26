@@ -24,7 +24,7 @@
     {{ item?.file?.name }}</p>
 
 
-    <button type="button" class="button primary uploadButton" (click)="uploader.uploadAll()" [disabled]="uploader.isUploading">
+    <button type="button" class="button primary uploadButton load" (click)="uploader.uploadAll()" [disabled]="uploader.isUploading">
       <span>Save</span>
       <div class="loader-wrapper" *ngIf="uploader.isUploading">
         <div class="typing_loader"></div>

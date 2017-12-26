@@ -15,7 +15,12 @@
         <input id="password" class="input border" type="password" name="password" [(ngModel)]="password">
       </div>
     </div>
-    <button class="button primary" role="button"><span class="text">Sign in</span></button>
+    <button class="button primary load" role="button">
+      <span class="text">Sign in</span>
+      <div class="loader-wrapper" *ngIf="isLoading">
+        <div class="typing_loader"></div>
+      </div>
+    </button>
     <div class="devider margin"></div>
     <p class="small-text">Sign in with new or existing user</p>
   </div>

@@ -14,6 +14,7 @@ export class SignInComponent implements OnInit {
   username: String;
   password: String;
   usernames: any;
+  isLoading: boolean = false;
 
   constructor(
     private validateService: ValidateService,
@@ -32,13 +33,14 @@ export class SignInComponent implements OnInit {
 
 
   onSignInSubmit(){
-
+    this.isLoading = true;
     var user = {
       username: this.username,
       password: this.password
     }
 
     if(!this.validateService.validateUserDetails(user)){
+      this.isLoading = false;
       this.flashMessages.show('Please fill the form', {cssClass: 'alert-error', timeout: 5000});
       return false;
     }
@@ -50,6 +52,7 @@ export class SignInComponent implements OnInit {
         // If existing user signed in successful
         this.resetFormFields();
         this.authService.storeUserData(data.token, data.user);
+        this.isLoading = false;
         this.router.navigate(['/feed']);
 
       } else {
@@ -62,24 +65,25 @@ export class SignInComponent implements OnInit {
 
               if(data.success) {
                 // If existing user signed in successful
+
                 this.resetFormFields();
                 this.authService.storeUserData(data.token, data.user);
+                this.isLoading = false;
                 this.router.navigate(['/feed']);
 
               } else {
                 // If the registration was not successful
+                this.isLoading = false;
                 this.resetFormFields();
                 this.flashMessages.show(data.msg, {cssClass: 'alert-error', timeout: 5000});
-                this.router.navigate(['/']);
-
                 }
             });
 
           } else {
-            // If the registration was not successful
+            // If the login was not successful
+            this.isLoading = false;
             this.resetFormFields();
             this.flashMessages.show('Wrong password', {cssClass: 'alert-error', timeout: 5000});
-            this.router.navigate(['/']);
           }
 
         });

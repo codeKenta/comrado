@@ -6,10 +6,6 @@ var express   = require('express'),
     User      = require('../models/user');
     Chat      = require('../models/chat');
 
-// router.get('/', (req, res, next) => {
-//   res.send("message work");
-// });
-
 
 router.post('/conversation', (req, res, next) => {
 
