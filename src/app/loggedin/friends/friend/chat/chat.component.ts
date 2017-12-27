@@ -31,9 +31,10 @@ export class ChatComponent implements OnInit, OnChanges {
    }
 
   ngOnInit() {
-    this.chatService.messages.subscribe(msg => {
+    this.chatService.chatSocket.subscribe(msg => {
       console.log(msg);
-    })
+    });
+
   }
 
   ngOnChanges() {

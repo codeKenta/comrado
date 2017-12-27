@@ -40,8 +40,6 @@ fs.readdir(defaultFolder, (err, files) => {
 // Register new user
 router.post('/register', (req, res, next) => {
 
-  console.log("Enter Register Route");
-
   // Sets the random number for picking a random default image
   let randomNumber = Math.floor(Math.random() * defaultImagesArray.length) + 1;
   let randomImage = defaultFolder + defaultImagesArray[randomNumber];

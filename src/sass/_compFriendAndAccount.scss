@@ -1,20 +1,15 @@
-.container.friend {
-  .top-section {
-    .extended-menu-friend-btn {
-      color: $mediumGrey;
-      font-size: 18px;
-      position: relative;
-      top: 0;
-      right: 0;
-      line-height: 0px;
+.extended-menu-friend-btn {
+  color: $mediumGrey;
+  font-size: 18px;
+  position: relative;
+  top: 3px;
+  right: 0;
+  line-height: 0px;
 
-      @include hover() {
-        color: white;
-      }
-    }
+  @include hover() {
+    color: white;
   }
 }
-
 
   .extended-menu {
     display: none;

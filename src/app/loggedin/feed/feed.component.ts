@@ -2,6 +2,8 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { FriendsService } from '../../services/friends.service';
+import { SocketService } from '../../services/socket.service';
+import { Observable, Subject } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-feed',
@@ -13,10 +15,15 @@ export class FeedComponent implements OnInit {
   currentUserId: string;
   filter: any[];
   matchedFriends: any;
+  matchedFriendsId: any[];
+
+  feedSocket: Subject<any>;
+  introduceSocket: Subject<any>;
 
   constructor(
     private authService: AuthService,
     private friendsService: FriendsService,
+    private socketService: SocketService
   ) {
 
     this.currentUserId = this.authService.getUser().id;
@@ -28,10 +35,21 @@ export class FeedComponent implements OnInit {
         this.filter = this.authService.getUser().filter;
       });
 
+    // Listening for calls on the feed-socket.
+    this.feedSocket = <Subject<any>>socketService
+      .connectFeed()
+      .map((response: any): any => {
+        console.log(response);
+        return response;
+    });
+
    }
 
   ngOnInit() {
 
+    // Sending introducing data for the user to the server-socket.
+    // So the socket can keep track of connected users.
+    this.socketService.introduce(this.currentUserId);
   }
 
   setFilter(filterItem) {
@@ -48,6 +66,9 @@ export class FeedComponent implements OnInit {
     this.friendsService.setMyFilter(this.currentUserId, this.filter).subscribe(result => {
       this.matchFriends();
 
+    // Inform the friends to update their feed
+    this.socketService.updateFeed(this.matchedFriendsId);
+
     }, err => {
       console.log(err);
       return false;
@@ -57,7 +78,19 @@ export class FeedComponent implements OnInit {
 
   matchFriends(){
     this.friendsService.matchFriends(this.currentUserId, this.filter).subscribe(friends => {
+
+      // Gets data for the friends
       this.matchedFriends = friends;
+
+      // Restoring the array with the id's to the matched friends.
+      this.matchedFriendsId = [];
+
+      // Pushing the new matched friends into the array
+      // This array is then used for communcation via sockets.
+      for (var i = 0; i < friends.length; i++) {
+        this.matchedFriendsId.push(friends[i]._id);
+      }
+
       return true;
     }, err => {
       console.log(err);

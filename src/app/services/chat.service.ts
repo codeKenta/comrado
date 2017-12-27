@@ -7,15 +7,15 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ChatService {
 
-  messages: Subject<any>;
+  chatSocket: Subject<any>;
 
   constructor(
     private http:Http,
     private socketService: SocketService
   ) {
 
-    this.messages = <Subject<any>>socketService
-      .connect()
+    this.chatSocket = <Subject<any>>socketService
+      .connectChat()
       .map((response: any): any => {
         return response;
       })
@@ -43,7 +43,7 @@ export class ChatService {
   }
 
   sendMessageSocket(msg) {
-    this.messages.next(msg);
+    this.chatSocket.next(msg);
   }
 
 }
