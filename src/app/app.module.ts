@@ -7,7 +7,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 
 import { Cloudinary as CloudinaryCore } from 'cloudinary-core';
 import { CloudinaryConfiguration, CloudinaryModule } from '@cloudinary/angular-5.x';
-import cloudinaryConfiguration from './config';
+import   cloudinaryConfiguration from './config';
 import { Cloudinary } from '@cloudinary/angular-5.x/src/cloudinary.service';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';

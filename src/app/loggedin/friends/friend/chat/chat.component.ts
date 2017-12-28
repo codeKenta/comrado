@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { AuthService } from '../../../../services/auth.service';
 import { ChatService } from '../../../../services/chat.service';
+import { SocketService } from '../../../../services/socket.service';
+import { Observable, Subject } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-chat',
@@ -12,28 +14,37 @@ export class ChatComponent implements OnInit, OnChanges {
   currentUser: any;
   message: string;
   conversation: any;
-  testvar = true;
   @Input() friend: any;
+  chatSocket: Subject<any>;
 
   constructor(
     private authService: AuthService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private socketService: SocketService,
   ) {
 
     this.currentUser = this.authService.getUser();
 
-    // Listening for changes in the user object in the service
-    this.authService.userUpdated.subscribe((user) => {
-        this.currentUser = this.authService.getUser();
-      }
-    );
+    this.chatSocket = <Subject<any>>socketService
+      .connectChat()
+      .map((response: any): any => {
+        return response;
+      })
 
    }
 
   ngOnInit() {
-    // Listen for call that inform this client to update the conversation
-    this.chatService.chatSocket.subscribe(msg => {
-      console.log(msg)
+
+    /*
+    Sending introducing data for the user to the server-socket.
+    So the socket can keep track of connected users.
+    */
+    this.socketService.introduceChat(this.currentUser.id);
+
+    /*
+    Listen for call that inform this client to update the conversation
+    */
+    this.chatSocket.subscribe(sender => {
       this.getConversation();
     });
 
@@ -43,13 +54,18 @@ export class ChatComponent implements OnInit, OnChanges {
     this.getConversation();
   }
 
+
   sendMessage(){
     this.chatService.sendMessage(this.currentUser.id, this.friend._id, this.message).
     subscribe(result => {
 
       this.message = "";
       this.getConversation();
-      this.chatService.sendMessageSocket(this.friend._id);
+
+      let data = {
+        reciever: this.friend._id
+      }
+      this.chatService.sendMessageSocket(data);
       return true;
     }, err => {
       console.log(err);

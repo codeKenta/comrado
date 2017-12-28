@@ -1,44 +1,60 @@
 exports = module.exports = (io) => {
 
 // Object that holds all the active connections.
-var socketClients = {};
+var feedClients = {};
+var chatClients = {};
 
   io.on('connection', (socket) => {
 
       // Deletes the client from socketClients when disconnecting
       socket.on('disconnect', () => {
-          delete socketClients[socket.client.id];
+          delete feedClients[socket.client.id];
+          delete chatClients[socket.client.id];
       });
 
-      // Recieving user data from the connected clients and keeping track of
+      // Recieving user data from the connected feed-clients and keeping track of
       // them by pairing socket.id and user.id
-      socket.on('introduce', (userId) => {
-          socketClients[socket.client.id] = JSON.parse(userId);
+      socket.on('introducefeed', (userId) => {
+          feedClients[socket.client.id] = JSON.parse(userId);
+      });
+
+      // Recieving user data from the connected feed-clients and keeping track of
+      // them by pairing socket.id and user.id
+      socket.on('introducechat', (userId) => {
+          chatClients[socket.client.id] = JSON.parse(userId);
       });
 
       /*
       Socket that tells the client to update their chat conversation
       */
-      socket.on('chat', (userId) => {
-        let parsedUserId = JSON.parse(userId);
-        let clientsToCall = [];
+      socket.on('chat', (data) => {
+        let parsedData    = JSON.parse(data),
+            recieverId    = parsedData.reciever,
+            clientsToCall = [];
 
         /*
         Extracting the keys (socketId) from the socketsClientsObject
-        where the value matches the incoming array of userIds
+        where the value matches the incoming userIds
         */
 
-        for (var key in socketClients) {
-          console.log(key, parsedUserId)
-          if( socketClients[key] == parsedUserId ){
+        for (var key in chatClients) {
+          if( chatClients[key] == recieverId ){
             clientsToCall.push(key)
           }
         }
 
-        console.log('clients.to.call');
-        console.log(clientsToCall);
+        /*
+        Calls all the clients who is online and matched.
+        Telling them to update their conversation.
+        Only emits if there is any to call.
+        Sending the sender-id to the client so angular-component
+        can decide if there should be a http-request.
+        */
 
-        socket.to(clientsToCall).emit('chat', 'Update your conversation');
+        if (clientsToCall.length !== 0) {
+          socket.to(clientsToCall).emit('chat');
+        }
+
       });
 
       socket.on('feed', (users) => {
@@ -50,9 +66,9 @@ var socketClients = {};
         where the value matches the incoming array of userIds
         */
 
-        for (var key in socketClients) {
+        for (var key in feedClients) {
           for (var i = 0; i < matchedUsers.length; i++) {
-            if( socketClients[key] == matchedUsers[i] ){
+            if( feedClients[key] == matchedUsers[i] ){
               clientsToCall.push(key)
             }
           }
@@ -63,6 +79,7 @@ var socketClients = {};
         Telling them to update their feed.
         Only emits if there is any to call.
         */
+
         if (clientsToCall.length !== 0) {
           socket.to(clientsToCall).emit('feed', 'Update!');
         }

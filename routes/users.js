@@ -320,7 +320,6 @@ router.put('/setfilter', (req, res, next) => {
     });
   });
 
-
 });
 
 // Matches friends by filter

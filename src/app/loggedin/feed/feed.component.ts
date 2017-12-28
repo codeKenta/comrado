@@ -46,9 +46,12 @@ export class FeedComponent implements OnInit {
 
   ngOnInit() {
 
+
+
     // Sending introducing data for the user to the server-socket.
     // So the socket can keep track of connected users.
-    this.socketService.introduce(this.currentUserId);
+    this.socketService.introduceFeed(this.currentUserId);
+
 
     // Listening to the feedSocket that informs this client
     // to update their feed

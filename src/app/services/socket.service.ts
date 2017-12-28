@@ -13,19 +13,36 @@ export class SocketService {
 
   // Our socket connection
   private socket;
+  private introduceToFeed: boolean = true;
+  private introduceToChat: boolean = true;
 
   constructor() { }
-
 
   /*
   Socket for introducing the user to the server.
   Sending user details.
-  This method only needs one-way communication
+
+  Keeps track of sockets connected to feed and chat.
+  The introduceTo...-if-block is used so the socket events
+  not fires on every ngOnInit in the componet.
+  This method only needs one-way communication.
   */
-  introduce(data){
-    this.socket.emit('introduce', JSON.stringify(data));
+
+  introduceFeed(data){
+    if (this.introduceToFeed) {
+      this.socket.emit('introducefeed', JSON.stringify(data));
+      this.introduceToFeed = false;
+    }
+
   }
 
+  introduceChat(data){
+    if(this.introduceToChat){
+      this.socket.emit('introducechat', JSON.stringify(data));
+      this.introduceToChat = false;
+    }
+
+  }
 
   /*
   Socket for connection to the chat socket which is listening
@@ -40,7 +57,6 @@ export class SocketService {
     // from our socket.io server.
     let observable = new Observable(observer => {
         this.socket.on('chat', (data) => {
-          console.log("Received message from Websocket Server", data)
           observer.next(data);
         })
         return () => {
