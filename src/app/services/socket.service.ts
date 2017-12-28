@@ -77,7 +77,6 @@ export class SocketService {
     // from our socket.io server.
     let observable = new Observable(observer => {
         this.socket.on('feed', (data) => {
-          console.log("Received message from Websocket Server for FEED ", data)
           observer.next(data);
         })
         return () => {
@@ -101,6 +100,10 @@ export class SocketService {
 
   updateFeed(data){
     this.socket.emit('feed', JSON.stringify(data));
+  }
+
+  updateConversation(data){
+    this.socket.emit('chat', JSON.stringify(data));
   }
 
   // Method to call for disconnect the socket when logging out

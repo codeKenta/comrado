@@ -39,7 +39,6 @@ export class FeedComponent implements OnInit {
     this.feedSocket = <Subject<any>>socketService
       .connectFeed()
       .map((response: any): any => {
-        console.log(response);
         return response;
     });
 
@@ -50,6 +49,13 @@ export class FeedComponent implements OnInit {
     // Sending introducing data for the user to the server-socket.
     // So the socket can keep track of connected users.
     this.socketService.introduce(this.currentUserId);
+
+    // Listening to the feedSocket that informs this client
+    // to update their feed
+    this.feedSocket.subscribe(msg => {
+      this.matchFriends();
+    });
+
   }
 
   setFilter(filterItem) {
@@ -76,6 +82,7 @@ export class FeedComponent implements OnInit {
 
   }
 
+  // Matching friends by the users filter
   matchFriends(){
     this.friendsService.matchFriends(this.currentUserId, this.filter).subscribe(friends => {
 

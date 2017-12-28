@@ -42,8 +42,8 @@ export class ChatService {
       .map(res => res.json());
   }
 
-  sendMessageSocket(msg) {
-    this.chatSocket.next(msg);
+  sendMessageSocket(data) {
+    this.chatSocket.next(data);
   }
 
 }

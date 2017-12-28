@@ -1,38 +1,48 @@
 exports = module.exports = (io) => {
 
+// Object that holds all the active connections.
 var socketClients = {};
-// var socketClients = [];
 
   io.on('connection', (socket) => {
 
-      // Log whenever a client disconnects from our websocket server
+      // Deletes the client from socketClients when disconnecting
       socket.on('disconnect', () => {
-          console.log('\nuser disconnected\n');
           delete socketClients[socket.client.id];
-          console.log(socketClients);
       });
 
       // Recieving user data from the connected clients and keeping track of
       // them by pairing socket.id and user.id
       socket.on('introduce', (userId) => {
-        // socketClients[socket.client.id] = userId;
-
-        // let socketConnection = {}
-        // socketConnection[socket.client.id] = userId;
-        // socketClients.push(socketConnection)
           socketClients[socket.client.id] = JSON.parse(userId);
-          console.log('\nConnected clients\n');
-          console.log(socketClients);
-
       });
 
-      socket.on('chat', (data) => {
-          console.log("Message call Received: " + data);
-          io.emit('chat', {type:'new-message', text: data});
+      /*
+      Socket that tells the client to update their chat conversation
+      */
+      socket.on('chat', (userId) => {
+        let parsedUserId = JSON.parse(userId);
+        let clientsToCall = [];
+
+        /*
+        Extracting the keys (socketId) from the socketsClientsObject
+        where the value matches the incoming array of userIds
+        */
+
+        for (var key in socketClients) {
+          console.log(key, parsedUserId)
+          if( socketClients[key] == parsedUserId ){
+            clientsToCall.push(key)
+          }
+        }
+
+        console.log('clients.to.call');
+        console.log(clientsToCall);
+
+        socket.to(clientsToCall).emit('chat', 'Update your conversation');
       });
 
       socket.on('feed', (users) => {
-        matchedUsers = JSON.parse(users);
+        let matchedUsers = JSON.parse(users);
         let clientsToCall = [];
 
         /*
@@ -49,19 +59,15 @@ var socketClients = {};
         }
 
         /*
-        Calls all the clients that where online and matched.
+        Calls all the clients who is online and matched.
         Telling them to update their feed.
+        Only emits if there is any to call.
         */
-        for (var i = 0; i < clientsToCall.length; i++) {
-          console.log(clientsToCall[i]);
-          // socket.to(clientsToCall[i]).emit('feed', 'I reached youu!');
+        if (clientsToCall.length !== 0) {
+          socket.to(clientsToCall).emit('feed', 'Update!');
         }
 
-        // socket.to(clientsToCall).emit('feed', 'I reached youu!');
-        socket.emit('feed', 'I reached youu!');
 
-
-          // io.emit('feed', {type:'new-message', text: data});
       });
 
 
