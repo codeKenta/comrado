@@ -14,7 +14,7 @@ router.post('/conversation', (req, res, next) => {
 
   Chat.find( { $or: [
       { sender : user2, reciever: user1 },
-      {sender : user1, reciever: user2 }
+      { sender : user1, reciever: user2 }
     ]} )
       .select('-__v')
       .sort({sent: 'desc'})
@@ -28,25 +28,22 @@ router.post('/conversation', (req, res, next) => {
 router.post('/send', (req, res, next) => {
 
   data = {
-    sender: mongoose.Types.ObjectId(req.body.sender),
+    sender:   mongoose.Types.ObjectId(req.body.sender),
     reciever: mongoose.Types.ObjectId(req.body.reciever),
-    message: req.body.message
+    message:  req.body.message
   }
 
   newMessage = new Chat(data);
 
   newMessage.save((err, createdMessage) => {
     if (err) {
-      res.json({success: false, msg: 'Message was could not be sent'});
+      res.json({success: false, msg: 'Message could not be sent'});
     } else {
       res.json({success: true, msg: 'Message was successfully sent'});
     }
   });
 
 });
-
-
-
 
 
 module.exports = router;

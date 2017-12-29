@@ -15,6 +15,7 @@ var express      = require('express'),
     cmd          = require('node-cmd'),
 
     User         = require('../models/user');
+    Chat      = require('../models/chat');
 
 
 // Cloadinary
@@ -68,7 +69,23 @@ router.post('/register', (req, res, next) => {
           if (err) {
             res.send(err);
           } else {
-            res.json({success: true, msg: 'New user registered'});
+
+            // Send a welcome message to the new user from the app creator
+            data = {
+              sender:   "5a2c596132ea4619a103dafe",
+              reciever: user._id,
+              message:  "Hi " + user.username + "! I'm Kenneth, the creator of this application. I hope you enjoy the result of my work. Let me know if you have any questions."
+            }
+
+            newMessage = new Chat(data);
+
+            newMessage.save((err, createdMessage) => {
+              if (err) {
+                res.json({success: false, msg: 'Message was could not be sent, but the new user is successfully created'});
+              } else {
+                res.json({success: true, msg: 'User registration complete'});
+              }
+            });
           }
         });
 
