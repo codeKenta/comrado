@@ -58,7 +58,6 @@ export class FriendComponent implements OnInit {
   }
 
   removeFriend(friendId){
-    console.log("THE CURRENT USER ID ----> ", this.currentUser.id)
     this.friendsService.endFriendship(this.currentUser.id, friendId).
     subscribe(result => {
       this.router.navigate(['/friends'], { queryParams: { reload: '1' } });

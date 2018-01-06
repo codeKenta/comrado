@@ -104,8 +104,8 @@ export class FriendsService {
       friendId: friendId
     }
 
-    return this.http.put('users/endfriendship', inputData)
-      .map(res => res.json());
+      return this.http.post('users/endfriendship', inputData)
+        .map(res => res.json());
 
   }
 

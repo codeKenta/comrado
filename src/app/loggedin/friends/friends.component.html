@@ -2,7 +2,7 @@
 
 <div class="container list friends">
   <div class="requests" *ngIf="currentUser.friendRequests.length !== 0">
-    <h2 class="title">Friend Requests</h2>
+    <h2 class="title" *ngIf="currentUser.friendRequests.length !== 0">Friend Requests</h2>
 
     <div class="request" *ngFor="let request of requests">
       <img src="{{request.imagepath}}" alt="{{request.username}}">

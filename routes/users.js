@@ -12,10 +12,9 @@ var express      = require('express'),
 
     path         = require('path'),
     async        = require('async'),
-    cmd          = require('node-cmd'),
 
-    User         = require('../models/user');
-    Chat      = require('../models/chat');
+    User         = require('../models/user'),
+    Chat         = require('../models/chat');
 
 
 // Cloadinary
@@ -145,7 +144,7 @@ router.post('/authenticate', (req, res, next) => {
 });
 
 // Protected route, gets user detail of logged in user
-router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+router.get('/profile', passport.authenticate('jwt', { session:false }), (req, res, next) => {
   let user = {
     username: req.user.username,
     filter: req.user.filter,
@@ -370,6 +369,8 @@ router.put('/request', (req, res, next) => {
 
 });
 
+
+
 // Accept friend request
 router.put('/request/accept', (req, res, next) => {
 
@@ -396,16 +397,20 @@ router.put('/request/deny', (req, res, next) => {
   var requesterId = mongoose.Types.ObjectId(req.body.requesterId);
   var denierId = mongoose.Types.ObjectId(req.body.denierId);
 
-  User.findOneAndUpdate({_id: denierId }, {$pull: { friendRequests: requesterId } }, function(err){
+  User.findOneAndUpdate(
+    {_id: denierId }, {$pull: { friendRequests: requesterId } }, (err) => {
     if (err) {
       res.send(err);
     } else {
       res.json({success: true, msg: 'Request denied'});
     }
   });
+});
+
 
 // End friendship between two users
 router.post('/endfriendship', (req, res, next) => {
+
   var currentUserId = mongoose.Types.ObjectId(req.body.currentUserId);
   var friendId = mongoose.Types.ObjectId(req.body.friendId);
   let users = [];
@@ -428,6 +433,7 @@ router.post('/endfriendship', (req, res, next) => {
 
 
 
-});
+
+
 
 module.exports = router;
