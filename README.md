@@ -27,5 +27,5 @@ Uploaded profile images are hosted by the third party cloud service Cloudinary.
 
 NodeJS, Express, MongoDB, Angular, Web Sockets, SocketIO, Cloudinary, Heroku
 
-### Example
-![Example of app](/mockups/mockup.jpg?raw=true)
+### Promo
+![Example of app](promo.jpg?raw=true)
