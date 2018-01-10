@@ -1,4 +1,5 @@
 # comrado
+![Example of app](promo.jpg?raw=true)
 https://comrado.herokuapp.com
 
 Created by Kenneth Österholm nov 2018.
@@ -27,5 +28,3 @@ Uploaded profile images are hosted by the third party cloud service Cloudinary.
 
 NodeJS, Express, MongoDB, Angular, Web Sockets, SocketIO, Cloudinary, Heroku
 
-### Promo
-![Example of app](promo.jpg?raw=true)
