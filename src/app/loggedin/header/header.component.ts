@@ -39,7 +39,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log("this USer", this.user);
     $(".link, #accountLink").click( function(){
       $("#extended-account-menu").slideUp();
     });
