@@ -27,7 +27,7 @@ const port = process.env.PORT || '3000';
 // DATABASE CONFIGS ==========
 // ===========================
 
-var uri = "mongodb://user:friends4ever@ds123926.mlab.com:23926/comrado_dev";
+var uri = "";
 
 mongoose.Promise = global.Promise
 mongoose.connect(uri);
