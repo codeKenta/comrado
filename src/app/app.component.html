@@ -1,5 +1,7 @@
 <div *ngIf="!authService.isSignedIn()">
-  <app-landing></app-landing>
+  <!-- <div class="landing-bg"> -->
+    <app-landing></app-landing>
+  <!-- </div> -->
 </div>
 
 <div *ngIf="authService.isSignedIn()">
