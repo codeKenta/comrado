@@ -1,42 +1,31 @@
-# housekeeper
-https://housekeepermobile.herokuapp.com
+# comrado
+https://comrado.herokuapp.com
 
-Created by Kenneth Österholm nov 2017.
+Created by Kenneth Österholm nov 2018.
 
 hello@osterholms.se
 
 
 ### Description
 
-Project for the course Web Development for Mobile Devices in Mid Swede University.
-This application is a reporting system for hotels and are used for changing the cleaned status of a room.
+MEAN-application as part of the final project for the course Web Development with Java Script in Mid Swede University.
+The concept of the application is to match your friends from your friend list by applying a activity-filter.
 
 
-### Features
+### Key Features
 <ul>
-  <li>Sign Up as an admin for a Hotel, or Log in with existing user.</li>
-  <li>Admins can add rooms.</li>
-  <li>Admins can add housekeepers (the cleaners).</li>
-  <li>Change the cleaned status of rooms (Cleaned or Not Cleaned).</li>
-  <li>Filter rooms by their status (All, Cleaned or Not Cleanet).</li>
+  <li>Match friends in real time.</li>
+  <li>Chat with friends in real time.</li>
 </ul>
 
-### Log in with existing user in the deployed app</h3>
-
-<strong>URL</strong> <br>
-https://housekeepermobile.herokuapp.com
-
-<strong>Login as Admin</strong> <br>
-Username: grandhotel <br>
-password: password <br>
-<br>
-<strong>Login as Housekeeper (cleaner)</strong><br>
-Username: carson<br>
-Password: password<br>
+### Technologhy
+Created as an MEAN-application with Angular 5 on client side.
+Using Web Sockets with the library Socket.IO for implementing real time features in feed and chat.
+Uploaded profile images are hosted by the third party cloud service Cloudinary.
 
 ### Keywords
 
-NodeJS, Express, MongoDB, Heroku
+NodeJS, Express, MongoDB, Angular, Web Sockets, SocketIO, Cloudinary, Heroku
 
 ### Example
 ![Example of app](/mockups/mockup.jpg?raw=true)
