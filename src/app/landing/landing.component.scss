@@ -3,20 +3,7 @@
 @import '~sass/mixins';
 
 .landing-bg {
-
-  // background: url("../../assets/images/landing/landing-xl.jpg") no-repeat center center fixed;
-  // @include mediaMaxWidth(500px) {
-  //   background: url("../../assets/images/landing/landing-small.jpg") no-repeat center center fixed;
-  // }
-  //
-  // background-size: cover;
-  // position: fixed;
   background: black;
-  // top: 0;
-  // right: 0;
-  // bottom: 0;
-  // left: 0;
-  // z-index: -1;
 }
 
 nav {
