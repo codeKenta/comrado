@@ -1,6 +1,6 @@
 /*
  * Kenneth Österholm
- * Final project in course "JavaScript based development "
+ * Final project in course "Web Development with JavaScript"
  * Mid Swede University 2018.
 */
 
