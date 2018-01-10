@@ -1,10 +1,11 @@
 # comrado
-![Example of app](promo.jpg?raw=true)
 https://comrado.herokuapp.com
 
 Created by Kenneth Österholm nov 2018.
 
 hello@osterholms.se
+
+![Example of app](promo.jpg?raw=true)
 
 
 ### Description
