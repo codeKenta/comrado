@@ -1,7 +1,7 @@
 # comrado
 https://comrado.herokuapp.com
 
-Created by Kenneth Österholm nov 2018.
+Created by Kenneth Österholm jan 2018.
 
 hello@osterholms.se
 
