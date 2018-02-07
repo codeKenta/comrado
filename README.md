@@ -16,8 +16,8 @@ The concept of the application is to match your friends from your friend list by
 
 ### Key Features
 <ul>
-  <li>Match friends in real time.</li>
-  <li>Chat with friends in real time.</li>
+  <li>Match friends in real time</li>
+  <li>Chat with friends in real time</li>
 </ul>
 
 ### Technologhy
