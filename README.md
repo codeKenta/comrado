@@ -10,7 +10,7 @@ hello@osterholms.se
 
 ### Description
 
-MEAN-application as part of the final project for the course Web Development with Java Script in Mid Swede University.
+MEAN-application as part of the final project for the course Web Development with Java Script in Mid Sweden University.
 The concept of the application is to match your friends from your friend list by applying a activity-filter.
 
 
