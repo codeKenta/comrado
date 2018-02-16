@@ -20,7 +20,7 @@ The concept of the application is to match your friends from your friend list by
   <li>Chat with friends in real time</li>
 </ul>
 
-### Technologhy
+### Technology
 Created as an MEAN-application with Angular 5 on client side.
 Using Web Sockets with the library Socket.IO for implementing real time features in feed and chat.
 Uploaded profile images are hosted by the third party cloud service Cloudinary.
