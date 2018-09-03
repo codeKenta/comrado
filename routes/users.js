@@ -20,8 +20,8 @@ var express      = require('express'),
 // Cloadinary
 cloudinary.config({
   cloud_name: 'knetos',
-  api_key: '618784128124614',
-  api_secret: 'aTNZ78KjLa0dnv1rCJq7bSvudUM'
+  api_key: '*********',
+  api_secret: '*******'
 });
 
 // Set the folder for default profile pictures
