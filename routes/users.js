@@ -80,7 +80,7 @@ router.post('/register', (req, res, next) => {
 
             newMessage.save((err, createdMessage) => {
               if (err) {
-                res.json({success: false, msg: 'Message was could not be sent, but the new user is successfully created'});
+                res.json({success: false, msg: 'Message could not be sent, but the new user is successfully created'});
               } else {
                 res.json({success: true, msg: 'User registration complete'});
               }
@@ -215,7 +215,7 @@ router.post('/updatepassword', (req, res, next) => {
           updatingUser.password = hash;
           updatingUser.save((err)=>{
             if (err) throw err;
-            return res.json({success: true, msg: 'Password successfully updated'});
+            return res.json({success: true, msg: 'Password was successfully updated'});
           });
         });
 
