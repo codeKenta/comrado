@@ -1,7 +1,7 @@
 /*
  * Kenneth Österholm
  * Final project in course "Web Development with JavaScript"
- * Mid Swede University 2018.
+ * Mid Sweden University 2018.
 */
 
 const express       = require('express'),
